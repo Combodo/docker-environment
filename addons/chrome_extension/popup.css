@@ -1,0 +1,33 @@
+html{
+    font-family: sans-serif;
+}
+body {
+    padding: 10px;
+    margin: 0;
+}
+
+.php{
+    text-align: center;
+    background-color: #ffffff26;
+    border-radius: 4px;
+    color: white;
+    font-size: .8rem;
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        color: #151515!important;
+        background-color: whitesmoke!important;
+    }
+    .php{
+        color: #151515;
+        background-color: #00000026;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        color: whitesmoke!important;
+        background-color: #252525!important;
+    }
+}

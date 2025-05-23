@@ -1,0 +1,167 @@
+name: docker_environment
+
+# php build template
+x-php-build: &default-php-build
+  dockerfile: php
+  context: ./build
+  args:
+    IMAGE: php:7.4-fpm
+    XDEBUG_VERSION: 3.1.6
+
+# php template
+x-php: &default-php
+  container_name: php
+  build:
+    <<: *default-php-build
+  volumes:
+    - ./conf/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+    - ./conf/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+    - ${HTML_FOLDER}:/var/www/html/
+  extra_hosts:
+    - host.docker.internal:host-gateway
+  restart: always
+
+services:
+
+  php74:
+    <<: *default-php
+    container_name: php7.4
+    build:
+      <<: *default-php-build
+      args:
+        IMAGE: php:7.4-fpm
+        XDEBUG_VERSION: 3.1.6
+
+  php80:
+    <<: *default-php
+    container_name: php8.0
+    build:
+      <<: *default-php-build
+      args:
+        IMAGE: php:8.0-fpm
+        XDEBUG_VERSION: 3.4.1
+
+  php81:
+    <<: *default-php
+    container_name: php8.1
+    build:
+      <<: *default-php-build
+      args:
+        IMAGE: php:8.1-fpm
+        XDEBUG_VERSION: 3.4.1
+
+  php82:
+    <<: *default-php
+    container_name: php8.2
+    build:
+      <<: *default-php-build
+      args:
+        IMAGE: php:8.2-fpm
+        XDEBUG_VERSION: 3.4.1
+
+  php83:
+    <<: *default-php
+    container_name: php8.3
+    build:
+      <<: *default-php-build
+      args:
+        IMAGE: php:8.3-fpm
+        XDEBUG_VERSION: 3.4.1
+
+  php84:
+    <<: *default-php
+    container_name: php8.4
+    build:
+      <<: *default-php-build
+      args:
+        IMAGE: php:8.4-fpm
+        XDEBUG_VERSION: 3.4.1
+
+  apache:
+    image: httpd:latest
+    ports:
+      - "88:88"
+      - "443:443"
+      - "74:74"
+      - "80:80"
+      - "81:81"
+      - "82:82"
+      - "83:83"
+      - "84:84"
+    volumes:
+      - ./conf/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./conf/apache/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+      - ./conf/certs:/etc/apache/certs
+      - ${HTML_FOLDER}:/var/www/html/
+    restart: always
+    deploy:
+      replicas: ${ENABLE_APACHE:-0}
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "88:88"
+      - "443:443"
+      - "74:74"
+      - "80:80"
+      - "81:81"
+      - "82:82"
+      - "83:83"
+      - "84:84"
+    volumes:
+      - ./conf/nginx:/etc/nginx/conf.d
+      - ./conf/certs:/etc/nginx/certs
+      - ${HTML_FOLDER}:/var/www/html/
+    restart: always
+    deploy:
+      replicas: ${ENABLE_NGINX:-0}
+
+  mariadb:
+    image: mariadb
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+        - ${DATA_FOLDER}/mariadb/:/var/lib/mysql
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSSWORD}
+
+  mysql:
+    image: mysql
+    restart: always
+    ports:
+      - "3307:3306"
+    volumes:
+      - ${DATA_FOLDER}/mysql/:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSSWORD}
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    deploy:
+      replicas: ${ENABLE_ADMINER:-0}
+
+  mailpit:
+    image: axllent/mailpit
+    container_name: mailpit
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+    ports:
+      - 8025:8025
+      - 1025:1025
+    environment:
+      MP_MAX_MESSAGES: 5000
+      MP_DATABASE: /${DATA_FOLDER}/mailpit/mailpit.db
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+      MP_ENABLE_SPAMASSASSIN: postmark
+    deploy:
+      replicas: ${ENABLE_MAILPIT:-0}
+
+networks:
+  multi_php_nginx:
+
