@@ -123,6 +123,7 @@ services:
       - "3306:3306"
     volumes:
         - ${DATA_FOLDER}/mariadb/:/var/lib/mysql
+        - ${DATA_FOLDER}/dbdump/:/tmp/dbdump
     environment:
       MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSSWORD}
 
@@ -133,6 +134,7 @@ services:
       - "3307:3306"
     volumes:
       - ${DATA_FOLDER}/mysql/:/var/lib/mysql
+      - ${DATA_FOLDER}/dbdump/:/tmp/dbdump
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSSWORD}
 

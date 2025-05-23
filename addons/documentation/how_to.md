@@ -117,6 +117,13 @@ Modify the `httpd-vhosts.conf` file in the apache conf directory then restart th
 You can change the folder used by databases in `.env` file.\
 Just set a new value to the `DATA_FOLDER` variable.
 
+### Import dump
+Connect to the database container with `docker exec -it <container> bash` then use the command line to import your dump.
+
+```bash
+mariadb --user <user> --password <database_name> < dump_file.sql
+```
+
 ### MariaDB
 
 #### Connect from host

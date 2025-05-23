@@ -13,6 +13,13 @@ Set password defined in `.env` file.
 
 ![Database](/addons/documentation/images/phpstorm_database.png)
 
+## Import a Dump File
+
+> [!WARNING]
+> We haven't successfully imported dump files from PhpStorm yet. You can use the command line way [How To...](how_to.md#import-dump)
+
+
+
 ## Setup PHP CLI Interpreter
 
 Go to PHP CLI interpreter settings section `File >> Settings >> Languages & Frameworks >> PHP`
