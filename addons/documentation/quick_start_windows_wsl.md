@@ -49,7 +49,7 @@ Open Docker Desktop and go to `settings > Resources > WSL Integration` then chec
 
 
 * Clone dockered-itop project\
-  `git clone https://github.com/bdalsass/dockered_itop.git`
+  `git clone https://github.com/Combodo/docker_environment.git`
 
 
 * Change current directory to dockered-itop directory\
