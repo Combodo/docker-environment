@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Dockered iTop PHP Version Selector",
+  "name": "PHP Version Selector",
   "version": "1.0",
   "description": "Select PHP version by modifying HTTP header request",
   "permissions": [
