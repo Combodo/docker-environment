@@ -129,11 +129,16 @@ mariadb --user <user> --password <database_name> < dump_file.sql
 #### Connect from host
 According to the port defined in the `docker-compose.yml`, you can connect to the database with the following url:  [jdbc:mariadb://localhost:3306](jdbc:mariadb://localhost:3308)
 
+#### Edit configuration
+Modify the `my.cnf` file in the MariaDB conf directory then restart the container.
+
 ### MySQL
 
 #### Connect from host
 According to the port defined in the `docker-compose.yml`, you can connect to the database with the following url:  [jdbc:mariadb://localhost:3307](jdbc:mariadb://localhost:3308)
 
+#### Edit configuration
+Modify the `my.cnf` file in the MySQL conf directory then restart the container.
 
 ## Adminer
 

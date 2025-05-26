@@ -122,6 +122,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
+        - ./conf/mariadb:/etc/mysql/conf.d
         - ${DATA_FOLDER}/mariadb/:/var/lib/mysql
         - ${DATA_FOLDER}/dbdump/:/tmp/dbdump
     environment:
@@ -133,6 +134,7 @@ services:
     ports:
       - "3307:3306"
     volumes:
+      - ./conf/mysql:/etc/mysql/conf.d
       - ${DATA_FOLDER}/mysql/:/var/lib/mysql
       - ${DATA_FOLDER}/dbdump/:/tmp/dbdump
     environment:
