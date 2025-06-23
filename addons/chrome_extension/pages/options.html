@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>PHP Version Selector - Options</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+        <link href="../assets/css/options.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <div class="container p-3">
+
+            <div id="options_block">
+
+                <!-- versions list -->
+                <div id="versions_block">
+                    <h5 class="d-flex align-items-center">
+                        <span class="flex-grow-1">PHP Versions</span>
+                        <button id="versions_btn_create" class="btn btn-secondary btn-sm d-flex align-items-center" style="column-gap: 3px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M11.75 4.5a.75.75 0 0 1 .75.75V11h5.75a.75.75 0 0 1 0 1.5H12.5v5.75a.75.75 0 0 1-1.5 0V12.5H5.25a.75.75 0 0 1 0-1.5H11V5.25a.75.75 0 0 1 .75-.75Z"></path></svg>Add</button>
+                        <span id="versions_btn_delete_group" class="btn-group d-none" role="group">
+                            <button id="versions_btn_delete" class="btn btn-danger btn-sm d-flex align-items-center" style="column-gap: 3px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M16 1.75V3h5.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H8V1.75C8 .784 8.784 0 9.75 0h4.5C15.216 0 16 .784 16 1.75Zm-6.5 0V3h5V1.75a.25.25 0 0 0-.25-.25h-4.5a.25.25 0 0 0-.25.25ZM4.997 6.178a.75.75 0 1 0-1.493.144L4.916 20.92a1.75 1.75 0 0 0 1.742 1.58h10.684a1.75 1.75 0 0 0 1.742-1.581l1.413-14.597a.75.75 0 0 0-1.494-.144l-1.412 14.596a.25.25 0 0 1-.249.226H6.658a.25.25 0 0 1-.249-.226L4.997 6.178Z"></path><path d="M9.206 7.501a.75.75 0 0 1 .793.705l.5 8.5A.75.75 0 1 1 9 16.794l-.5-8.5a.75.75 0 0 1 .705-.793Zm6.293.793A.75.75 0 1 0 14 8.206l-.5 8.5a.75.75 0 0 0 1.498.088l.5-8.5Z"></path></svg>Delete</button>
+                            <button id="versions_btn_delete_stop" class="btn btn-danger btn-sm d-flex align-items-center" style="column-gap: 3px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="white"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path></svg></button>
+                        </span>
+                    </h5>
+                    <p>
+                        PHP versions handled by your php server.
+                    </p>
+                    <ul id="versions_list" class="list-group">
+                        <!-- template -->
+                        <template id="version_template">
+                            <li class="list-group-item" data-version="">
+                                <input id="input" class="form-check-input me-1" type="checkbox" value="">
+                                <label class="form-check-label stretched-link" for="input"></label>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+
+                <!-- url filter -->
+                <div id="url_filter" class="mt-3">
+                    <h5>Automatic mode</h5>
+                    <p>
+                        Configuration for the automatic mode of the web server.
+                    </p>
+                    <label for="url_filter_input">URLs Filter</label>
+                    <input type="text" class="form-control form-control-sm" id="url_filter_input" placeholder="localhost:80">
+                    <div class="form-text" id="basic-addon4">See the <a href="https://developer.chrome.com/docs/extensions/reference/api/declarativeNetRequest#url_filter_syntax" target="_blank">documentation</a> for the filter syntax.</div>
+                </div>
+
+<!--                &lt;!&ndash; options actions &ndash;&gt;-->
+<!--                <div id="options_actions" class="d-flex mt-3">-->
+<!--                    <button id="options_btn_save" class="btn btn-primary flex-grow-1 disabled">Save Options</button>-->
+<!--                </div>-->
+
+            </div>
+
+            <!-- versions add form -->
+            <div id="version_add_form" class="d-none">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="version_add_form_number" placeholder="8.5">
+                    <label for="version_add_form_number">New PHP Version</label>
+                </div>
+                <div id="version_add_form_alert" class="alert alert-danger d-none mt-2" role="alert">
+                </div>
+                <div class="d-flex mt-3" style="column-gap: 10px;">
+                    <button id="version_add_form_btn_confirm" class="btn btn-primary btn- btn-sm d-flex align-items-center flex-grow-1" style="column-gap: 10px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M21.03 5.72a.75.75 0 0 1 0 1.06l-11.5 11.5a.747.747 0 0 1-1.072-.012l-5.5-5.75a.75.75 0 1 1 1.084-1.036l4.97 5.195L19.97 5.72a.75.75 0 0 1 1.06 0Z"></path></svg>Confirm</button>
+                    <button id="version_add_form_btn_cancel" class="btn btn-secondary btn- btn-sm d-flex align-items-center flex-grow-1" style="column-gap: 10px;">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+
+        <span id="options_btn_save" class="d-none">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M3.5 3.75a.25.25 0 0 1 .25-.25h13.5a.25.25 0 0 1 .25.25v10a.75.75 0 0 0 1.5 0v-10A1.75 1.75 0 0 0 17.25 2H3.75A1.75 1.75 0 0 0 2 3.75v16.5c0 .966.784 1.75 1.75 1.75h7a.75.75 0 0 0 0-1.5h-7a.25.25 0 0 1-.25-.25V3.75Z"></path><path d="M6.25 7a.75.75 0 0 0 0 1.5h8.5a.75.75 0 0 0 0-1.5h-8.5Zm-.75 4.75a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Zm16.28 4.53a.75.75 0 1 0-1.06-1.06l-4.97 4.97-1.97-1.97a.75.75 0 1 0-1.06 1.06l2.5 2.5a.75.75 0 0 0 1.06 0l5.5-5.5Z"></path></svg>
+        </span>
+
+
+        <script src="../assets/js/options.js"></script>
+
+    </body>
+</html>

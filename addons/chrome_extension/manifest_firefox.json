@@ -1,8 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "Dockered iTop PHP Version Selector",
-  "version": "1.0",
+  "name": "PHP Version Selector",
+  "version": "1.1",
   "description": "Select PHP version by modifying HTTP header request",
+  "options_ui": {
+    "page": "./pages/options.html",
+    "open_in_tab": false
+  },
   "permissions": [
     "declarativeNetRequest",
     "storage",
@@ -12,20 +16,20 @@
     "<all_urls>"
   ],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["./assets/js/background.js"]
   },
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "./pages/popup.html",
     "default_icon": {
-      "16": "images/icon_16.png",
-      "48": "images/icon_48.png",
-      "128": "images/icon_128.png"
+      "16": "./assets/images/icon_16.png",
+      "48": "./assets/images/icon_48.png",
+      "128": "./assets/images/icon_128.png"
     }
   },
   "icons": {
-    "16": "images/icon_16.png",
-    "48": "images/icon_48.png",
-    "128": "images/icon_128.png"
+    "16": "./assets/images/icon_16.png",
+    "48": "./assets/images/icon_48.png",
+    "128": "./assets/images/icon_128.png"
   },
   "browser_specific_settings": {
     "gecko": {

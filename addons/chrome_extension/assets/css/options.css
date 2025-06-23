@@ -1,0 +1,13 @@
+.form-check-label{
+    cursor: pointer;
+}
+
+#options_btn_save{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #b336e1;
+    border-radius: 50%;
+    padding: 12px;
+    cursor: pointer;
+}
