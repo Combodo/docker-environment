@@ -70,6 +70,27 @@ You may also perform terminal commands in the container.
 
 ![Services](/addons/documentation/images/phpstorm/services_container_terminal.png)
 
+## Open a terminal inside the WSL2 container
+
+Inside PHPStorm's terminal pane, using the dropdown arrow allows you to select the `dockered-itop` WSL2 container, where you can run commands to [install iTop](./itop_installation.md).
+
+![Services](/addons/documentation/images/phpstorm/wsl2_terminal.png)
+
+## Xdebug
+Open a PHPStorm instance to open the iTop root folder. You should not use the PHPStorm instance used for the docker_environment project.
+
+In PHPStorm settings, under PHP > Debug, you can uncheck these options :
+- [ ] Force break at first line when no path mapping specified
+- [ ] Force break at first line when a script is outside the project
+
+In PHPStorm settings, under PHP > Servers, add a new server with the following configuration :
+- Host : localhost
+- Port : 88
+- Debugger : Xdebug
+
+### WSL2-specific configuration
+In PHPStorm settings, under PHP > Servers, in your server configuration, add a path mapping from `//wsl.localhost/dockered-itop/home/{your-username}/docker_environment/html/iTop` to `/var/www/html/iTop`, making sure you replace `{your-username}` with the appropriate value.
+
 \
 \
 🔙 [Back to readme page](../../readme.md)

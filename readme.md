@@ -20,6 +20,8 @@ The environment is designed to be easy to set up and use, with all necessary com
 
 📓 [Troubleshooting](./addons/documentation/troubleshooting.md)
 
+📓 [iTop installation](./addons/documentation/itop_installation.md)
+
 ## Docker containers
 
 Find below, a short description of the containers available in the Docker environment.
