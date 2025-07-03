@@ -188,7 +188,7 @@ Use `--force-recreate` to force the recreation of containers.
 
 [Official documentation](https://docs.docker.com/compose/reference/up/)
 
-### Remove docker environment
+### Shut down docker environment
 
 Run `docker compose down` with host bash in the project root directory.
 
