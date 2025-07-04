@@ -167,13 +167,13 @@ services:
     container_name: mailpit
     restart: unless-stopped
     volumes:
-      - ./data:/data
+      - ${DATA_FOLDER}/mailpit/:/data
     ports:
       - 8025:8025
       - 1025:1025
     environment:
       MP_MAX_MESSAGES: 5000
-      MP_DATABASE: /${DATA_FOLDER}/mailpit/mailpit.db
+      MP_DATABASE: /data/mailpit.db
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
       MP_ENABLE_SPAMASSASSIN: postmark
