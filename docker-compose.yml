@@ -94,6 +94,13 @@ services:
       - ./conf/certs:/etc/apache/certs
       - ${HTML_FOLDER}:/var/www/html/
     restart: always
+    depends_on:
+      - php74
+      - php80
+      - php81
+      - php82
+      - php83
+      - php84
     deploy:
       replicas: ${ENABLE_APACHE:-0}
 
@@ -113,12 +120,19 @@ services:
       - ./conf/certs:/etc/nginx/certs
       - ${HTML_FOLDER}:/var/www/html/
     restart: always
+    depends_on:
+      - php74
+      - php80
+      - php81
+      - php82
+      - php83
+      - php84
     deploy:
       replicas: ${ENABLE_NGINX:-0}
 
   mariadb:
     image: mariadb
-    restart: always
+    restart: unless-stopped
     ports:
       - "3306:3306"
     volumes:
@@ -130,7 +144,7 @@ services:
 
   mysql:
     image: mysql
-    restart: always
+    restart: unless-stopped
     ports:
       - "3307:3306"
     volumes:
@@ -142,7 +156,7 @@ services:
 
   adminer:
     image: adminer
-    restart: always
+    restart: unless-stopped
     ports:
       - "8080:8080"
     deploy:
