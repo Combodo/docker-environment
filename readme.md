@@ -18,9 +18,9 @@ The environment is designed to be easy to set up and use, with all necessary com
 
 📓 [PHP Switcher Browser Extension](./addons/documentation/browser_extension.md)
 
-📓 [Troubleshooting](./addons/documentation/troubleshooting.md)
-
 📓 [iTop installation](./addons/documentation/itop_installation.md)
+
+📓 [Troubleshooting](./addons/documentation/troubleshooting.md)
 
 ## Docker containers
 

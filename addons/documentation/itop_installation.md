@@ -1,23 +1,25 @@
 🔙 [Back to readme page](../../readme.md)
 # iTop installation
-> [!WARNING]
-> **All these steps are to be executed [inside the dockered-itop container](./phpstorm.md#open-a-terminal-inside-the-wsl2-container).**
+> [!NOTE]
+> **All these steps are to be executed [inside the dockered-itop project](./phpstorm.md#open-a-terminal-inside-the-wsl2-host).**
 
-## Change the current working directory
+### Change the current working directory
 `cd html`
 
-## Install iTop
+### Clone the iTop repository
 `git clone https://github.com/Combodo/iTop.git`
 
-## Update iTop ownership
-`sudo chown www-data: iTop -R`
+### Update iTop ownership
+`sudo chown www-data iTop -R && sudo chmod g+w iTop -R`
 
-## Configure iTop
+### Configure iTop
 Visit http://localhost:88/iTop/ to start configuring the software.
 
 ![Prerequisites](/addons/documentation/images/itop_install/wizard1-prerequisites.png "Prerequisites")
 
-You should be welcomed with a screen like above where prerequisites are ok, and you may have a security warning regarding the `AllowOverride` directive for Apache if you are using Nginx instead (which is the default configuration).
+You should be welcomed with a screen like above where prerequisites are ok.
+> [!WARNING]
+> You may have a security warning regarding the `AllowOverride` directive for Apache if you chose to edit the .env file to use Nginx instead, which can safely be ignored.
 
 Click `Continue`.
 
@@ -35,9 +37,9 @@ Click `Next`.
 
 ![Database Configuration](/addons/documentation/images/itop_install/wizard4-database-configuration.png "Database Configuration")
 
-- The `Server Name` field should contain the name of the docker container hosting your database. `mariadb` is the one used by default, `mysql` is also available.
+- The `Server Name` field should contain the name of the docker container hosting your database. You can choose between `mariadb` and `mysql`.
 - The `Login` field should contain `root`.
-- The `Password` field should contain the value set in the `.env` file for the `MARIADB_ROOT_PASSWORD` or `MYSQL_ROOT_PASSWORD` key depending on the container you chose in the `Server Name` field.
+- The `Password` field should contain the value set in the `.env` file for the `DB_ROOT_PASSWORD` key.
 
 Click `Next`.
 
