@@ -148,6 +148,20 @@ services:
     deploy:
       replicas: ${ENABLE_ADMINER:-0}
 
+  install:
+    build:
+      context: ./conf/install
+    volumes:
+      - ${HTML_FOLDER}:/var/www/html/
+      - ${HOME}:/home/user
+      - ./conf/install:/home/install
+    profiles:
+      - install
+    environment:
+      - GROUP_ID
+      - HOME
+      - HOST_PWD
+
   mailpit:
     image: axllent/mailpit
     container_name: mailpit
@@ -166,6 +180,4 @@ services:
     deploy:
       replicas: ${ENABLE_MAILPIT:-0}
 
-networks:
-  multi_php_nginx:
 

@@ -3,21 +3,14 @@
 > [!NOTE]
 > **All these steps are to be executed [inside the dockered-itop project](./phpstorm.md#open-a-terminal-inside-the-wsl2-host).**
 
-### Change the current working directory
-`cd html`
+### Start the docker environment
+`docker compose up -d`
 
-### Clone the iTop repository
-`git clone https://github.com/Combodo/iTop.git`
-
-### Updating permissions
-`sudo chown www-data iTop -R && sudo chmod g+w iTop -R`
-
-Make sure to replace `{YOUR_USERNAME}` with your actual username in the following command :
-
-`git config --global --add safe.directory /home/{YOUR_USERNAME}/docker_environment/html/iTop`
+### Start iTop installation wizard
+`docker compose run --rm --build -e GROUP_ID=$(id -g) -e HOME=$HOME -e HOST_PWD=$(pwd) install`
 
 ### Configure iTop
-Visit http://localhost:88/iTop/ to start configuring the software.
+To start configuring the software, visit http://localhost:88/iTop/ if you left the default options, or follow the link from the wizard.
 
 ![Prerequisites](/addons/documentation/images/itop_install/wizard1-prerequisites.png "Prerequisites")
 
