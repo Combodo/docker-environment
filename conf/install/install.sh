@@ -2,10 +2,16 @@
 
 source "$(dirname "$0")/utils.sh"
 
-trap 'print_error "Une erreur est survenue. Arrêt du script."' ERR
+trap 'error_cleanup; print_error "Something unexpected happened. Exiting the wizard."' ERR
 set -e #Stops the script on any error
 export LANG=fr_FR.UTF-8
 export LC_ALL=fr_FR.UTF-8
+
+error_cleanup() {
+  if [ -n "$PROJECT_NAME" ] && [ -d "/var/www/html/$PROJECT_NAME" ]; then
+    rm -r "/var/www/html/$PROJECT_NAME"
+  fi
+}
 
 update_permissions() {
   chown www-data:$GROUP_ID $PROJECT_NAME -R
@@ -13,34 +19,34 @@ update_permissions() {
 }
 
 print_install_success() {
-  print_success "Installation de iTop terminée"
-  echo "Vous pouvez maintenant configurer votre projet depuis http://localhost:88/$PROJECT_NAME."
+  print_success "Installation successfull"
+  echo "Start configuring iTop on http://localhost:88/$PROJECT_NAME."
 }
 
 cd /var/www/html
 
 PROJECT_NAME=$(dialog --clear --stdout --inputbox \
-  "Choisir un nom unique pour votre nouveau projet iTop :\n\
+  "Choose an iTop project name :\n\
   \n\
-  Ce nom servira de dossier d'installation.\n\
-  Il servira également dans vos URL." \
-  10 50)
+  This name should be unique and not contain spaces or special characters.\n\
+  It will be used as an installation folder and URL path component." \
+  12 100)
 clear
 
 if [ -z "$PROJECT_NAME" ]; then
   PROJECT_NAME="iTop"
 fi
 
-INSTALL_MODE=$(dialog --clear --stdout --menu "Mode d'installation :" 15 40 4 \
-  1 "Depuis GitHub" \
-  2 "Depuis la factory" \
+INSTALL_MODE=$(dialog --clear --stdout --menu "Installation source :" 15 40 4 \
+  1 "GitHub" \
+  2 "Combodo factory" \
 )
 clear
 
 case "$INSTALL_MODE" in
   1) source "$(dirname "$0")/git_install.sh" ; install_from_git ;;
   2) source "$(dirname "$0")/factory_install.sh" ; install_from_factory ;;
-  *) echo "Option invalide. Veuillez réessayer." ; exit 1 ;;
+  *) echo "Invalid option, exiting." ; exit 1 ;;
 esac
 
 update_permissions
