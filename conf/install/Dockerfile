@@ -6,7 +6,7 @@ RUN apt-get update && \
 
 RUN locale-gen fr_FR.UTF-8
 
-COPY install.sh /root/install/install.sh
+COPY . /root/install/
 RUN chmod +x /root/install/install.sh
 
 WORKDIR /root/install
