@@ -2,8 +2,7 @@ name: docker_environment
 
 # php build template
 x-php-build: &default-php-build
-  dockerfile: php
-  context: ./build
+  context: ./build/php
   args:
     IMAGE: php:7.4-fpm
     XDEBUG_VERSION: 3.1.6
@@ -148,13 +147,12 @@ services:
     deploy:
       replicas: ${ENABLE_ADMINER:-0}
 
-  install:
+  itop-install-wizard:
     build:
-      context: ./conf/install
+      context: ./build/itop-install-wizard
     volumes:
       - ${HTML_FOLDER}:/var/www/html/
       - ${HOME}:/home/user
-      - ./conf/install:/home/install
     profiles:
       - install
     environment:

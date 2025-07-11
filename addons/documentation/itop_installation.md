@@ -7,7 +7,7 @@
 `docker compose up -d`
 
 ### Start iTop installation wizard
-`docker compose run --rm --build -e GROUP_ID=$(id -g) -e HOME=$HOME -e HOST_PWD=$(pwd) install`
+`docker compose run --rm --build -e GROUP_ID=$(id -g) -e HOME=$HOME -e HOST_PWD=$(pwd) itop-install-wizard`
 
 ### Configure iTop
 To start configuring the software, visit http://localhost:88/iTop/ if you left the default options, or follow the link from the wizard.

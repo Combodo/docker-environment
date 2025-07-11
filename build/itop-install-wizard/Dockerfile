@@ -4,7 +4,7 @@ RUN apt-get update && \
     apt-get install -y dialog git && \
     rm -rf /var/lib/apt/lists/*
 
-COPY . /root/install/
+COPY ./scripts /root/install/
 RUN chmod +x /root/install/install.sh
 
 WORKDIR /root/install
