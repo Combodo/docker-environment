@@ -4,8 +4,6 @@ source "$(dirname "$0")/utils.sh"
 
 trap 'error_cleanup; print_error "Something unexpected happened. Exiting the wizard."' ERR
 set -e #Stops the script on any error
-export LANG=fr_FR.UTF-8
-export LC_ALL=fr_FR.UTF-8
 
 error_cleanup() {
   if [ -n "$PROJECT_NAME" ] && [ -d "/var/www/html/$PROJECT_NAME" ]; then
