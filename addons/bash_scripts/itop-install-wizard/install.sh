@@ -1,19 +1,22 @@
 #!/bin/bash
 
-source "$(dirname "$0")/utils.sh"
+. "$(dirname "$0")/includes/utils.sh"
+. "$(dirname "$0")/includes/git_install.sh"
+. "$(dirname "$0")/includes/factory_install.sh"
+. "$(dirname "$0")/../../../.env"
 
 trap 'error_cleanup; print_error "Something unexpected happened. Exiting the wizard."' ERR
 set -e #Stops the script on any error
 
 error_cleanup() {
-  if [ -n "$PROJECT_NAME" ] && [ -d "/var/www/html/$PROJECT_NAME" ]; then
-    rm -r "/var/www/html/$PROJECT_NAME"
+  if [ -n "$PROJECT_NAME" ] && [ -d "$HTML_FOLDER/$PROJECT_NAME" ]; then
+    rm -r "$HTML_FOLDER/$PROJECT_NAME"
   fi
 }
 
 update_permissions() {
-  chown www-data:$GROUP_ID $PROJECT_NAME -R
-  chmod g+w $PROJECT_NAME -R
+  sudo chown www-data:${SUDO_USER:-$USER} $PROJECT_NAME -R
+  sudo chmod g+w $PROJECT_NAME -R
 }
 
 print_install_success() {
@@ -21,7 +24,12 @@ print_install_success() {
   echo "Start configuring iTop on http://localhost:88/$PROJECT_NAME."
 }
 
-cd /var/www/html
+if [ "$EUID" -ne 0 ]
+	then echo "Please run as root"
+	exit
+fi
+
+cd $HTML_FOLDER
 
 PROJECT_NAME=$(dialog --clear --stdout --inputbox \
   "Choose an iTop project name :\n\
@@ -42,8 +50,8 @@ INSTALL_MODE=$(dialog --clear --stdout --menu "Installation source :" 15 40 4 \
 clear
 
 case "$INSTALL_MODE" in
-  1) source "$(dirname "$0")/git_install.sh" ; install_from_git ;;
-  2) source "$(dirname "$0")/factory_install.sh" ; install_from_factory ;;
+  1) install_from_git ;;
+  2) install_from_factory ;;
   *) echo "Invalid option, exiting." ; exit 1 ;;
 esac
 

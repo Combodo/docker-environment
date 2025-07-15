@@ -147,19 +147,6 @@ services:
     deploy:
       replicas: ${ENABLE_ADMINER:-0}
 
-  itop-install-wizard:
-    build:
-      context: ./build/itop-install-wizard
-    volumes:
-      - ${HTML_FOLDER}:/var/www/html/
-      - ${HOME}:/home/user
-    profiles:
-      - install
-    environment:
-      - GROUP_ID
-      - HOME
-      - HOST_PWD
-
   mailpit:
     image: axllent/mailpit
     container_name: mailpit

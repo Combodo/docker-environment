@@ -1,6 +1,6 @@
 update_git_config_safe_directory() {
-  DIR="$HOST_PWD/html/$PROJECT_NAME"
-  CONFIG="/home/user/.gitconfig"
+  DIR="$HTML_FOLDER/$PROJECT_NAME"
+  CONFIG="$PROJECT_NAME/.git/config"
   if ! grep -Fxq "    directory = $DIR" "$CONFIG"; then
     if ! grep -Fxq "[safe]" "$CONFIG"; then
       echo -e "\n[safe]\n    directory = $DIR" >> "$CONFIG"
