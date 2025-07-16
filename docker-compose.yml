@@ -94,13 +94,13 @@ services:
       - ./conf/certs:/etc/apache/certs
       - ${HTML_FOLDER}:/var/www/html/
     restart: always
-    depends_on:
-      - php74
-      - php80
-      - php81
-      - php82
-      - php83
-      - php84
+#    depends_on:
+#      - php74
+#      - php80
+#      - php81
+#      - php82
+#      - php83
+#      - php84
     deploy:
       replicas: ${ENABLE_APACHE:-0}
 
@@ -120,13 +120,13 @@ services:
       - ./conf/certs:/etc/nginx/certs
       - ${HTML_FOLDER}:/var/www/html/
     restart: always
-    depends_on:
-      - php74
-      - php80
-      - php81
-      - php82
-      - php83
-      - php84
+#    depends_on:
+#      - php74
+#      - php80
+#      - php81
+#      - php82
+#      - php83
+#      - php84
     deploy:
       replicas: ${ENABLE_NGINX:-0}
 
