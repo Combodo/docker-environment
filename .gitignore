@@ -1,1 +1,4 @@
 /addons/chrome_extension/node_modules/
+
+.env.local
+.env.*.local
