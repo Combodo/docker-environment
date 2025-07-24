@@ -1,4 +1,2 @@
-/conf
-
 .env.local
 .env.*.local
