@@ -80,7 +80,7 @@ services:
   apache:
     image: httpd:latest
     ports:
-      - "${APACHE_PORT_88:-88}:88"
+      - "${APACHE_PORT_AUTO:-88}:88"
       - "${APACHE_PORT_443:-443}:443"
       - "${APACHE_PORT_74:-74}:74"
       - "${APACHE_PORT_80:-80}:80"
@@ -107,7 +107,7 @@ services:
   nginx:
     image: nginx:alpine
     ports:
-      - "${NGINX_PORT_88:-88}:88"
+      - "${NGINX_PORT_AUTO:-88}:88"
       - "${NGINX_PORT_443:-443}:443"
       - "${NGINX_PORT_74:-74}:74"
       - "${NGINX_PORT_80:-80}:80"
