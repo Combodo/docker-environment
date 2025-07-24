@@ -1,8 +1,8 @@
 🔙 [Back to readme page](../../readme.md)
 # Docker Commands
-Useful commands for docker.
+Useful commands for docker environment.
 
-### Launch docker environment
+### Launch docker environment containers
 
 Run `docker compose up -d` with host bash in the project root directory.
 
@@ -10,13 +10,13 @@ Use `--force-recreate` to force the recreation of containers.
 
 [Official documentation](https://docs.docker.com/compose/reference/up/)
 
-### Shut down docker environment
+### Destroy docker environment containers
 
 Run `docker compose down` with host bash in the project root directory.
 
 [Official documentation](https://docs.docker.com/compose/reference/down/)
 
-### Restart a container
+### Restart a single container
 
 Run `docker container restart <container>` with host bash in the project root directory or use action button in the PhpStorm container view.
 
@@ -28,7 +28,7 @@ Run `docker exec -it <container> bash` with host bash in the project root direct
 
 [Official documentation](https://docs.docker.com/engine/reference/commandline/exec/)
 
-### Show statistics
+### Show containers statistics
 
 Run `docker stats`
 

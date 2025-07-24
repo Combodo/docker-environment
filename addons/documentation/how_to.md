@@ -1,6 +1,6 @@
 🔙 [Back to readme page](../../readme.md)
 # How to
-Tips for the common operations you may need to do with the dockered-itop environment.
+Tips for the common operations you may need to do with the docker environment.
 
 ## PHP
 
@@ -112,12 +112,27 @@ Modify the `httpd-vhosts.conf` file in the apache conf directory then restart th
 You can change the folder used by databases in your `.env.local` file.\
 Just set a new value to the `DATA_FOLDER` variable.
 
-### Import dump
+### Import/Export database dump
+
+> [!NOTE]
+> A folder is mount from the host (data/dbdump) in data folder to the database container (/tmp/dbdump).
+
+#### Import
 Connect to the database container with `docker exec -it <container> bash` then use the command line to import your dump.
 
 ```bash
-mariadb --user <user> --password <database_name> < dump_file.sql
+mariadb --user <user> --password <database_name> < /tmp/dbdump/dump_file.sql
 ```
+
+#### Export
+Connect to the database container with `docker exec -it <container> bash` then use the command line to import your dump.
+
+```bash
+mariadb-dump --user <user> --password <database_name> > /tmp/dbdump/dump_file.sql
+```
+
+> > [!IMPORTANT]
+> mysql-dump is lot longer available in the mariadb container, you have to use `mariadb-dump` instead.
 
 ### MariaDB
 
@@ -166,7 +181,7 @@ For iTop, you can use this default configuration:
 Relay is activated by default, so you can use MailPit as a relay server to forward emails to another SMTP server.\
 You can specify witch recipient are candidates to relay via en environment variable `MAILPIT_RELAY_MATCHING` in the `.env.local` file.\
 
-A forwarding configuration is also available to forward emails to another SMTP server without relaying.
+A forwarding configuration is also available to forward emails to another SMTP server.
 Refer to the official documentations for more information.
 
 https://mailpit.axllent.org/docs/configuration/smtp-forward/
