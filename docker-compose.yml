@@ -14,8 +14,8 @@ x-php: &default-php
   build:
     <<: *default-php-build
   volumes:
-    - ./conf/php/php.ini:/usr/local/etc/php/conf.d/php.ini
-    - ./conf/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+    - ${CONF_FOLDER}/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+    - ${CONF_FOLDER}/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
     - ${HTML_FOLDER}:/var/www/html/
   extra_hosts:
     - host.docker.internal:host-gateway
@@ -89,9 +89,9 @@ services:
       - "${APACHE_PORT_83:-83}:83"
       - "${APACHE_PORT_84:-84}:84"
     volumes:
-      - ./conf/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
-      - ./conf/apache/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
-      - ./conf/certs:/etc/apache/certs
+      - ${CONF_FOLDER}/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ${CONF_FOLDER}/apache/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+      - ${CONF_FOLDER}/certs:/etc/apache/certs
       - ${HTML_FOLDER}:/var/www/html/
     restart: always
 #    depends_on:
@@ -116,8 +116,8 @@ services:
       - "${NGINX_PORT_83:-83}:83"
       - "${NGINX_PORT_84:-84}:84"
     volumes:
-      - ./conf/nginx:/etc/nginx/conf.d
-      - ./conf/certs:/etc/nginx/certs
+      - ${CONF_FOLDER}/nginx:/etc/nginx/conf.d
+      - ${CONF_FOLDER}/certs:/etc/nginx/certs
       - ${HTML_FOLDER}:/var/www/html/
     restart: always
 #    depends_on:
@@ -136,7 +136,7 @@ services:
     ports:
       - "${MARIADB_PORT:-3306}:3306"
     volumes:
-      - ./conf/mariadb:/etc/mysql/conf.d
+      - ${CONF_FOLDER}/mariadb:/etc/mysql/conf.d
       - ${DATA_FOLDER}/mariadb/:/var/lib/mysql
       - ${DATA_FOLDER}/dbdump/:/tmp/dbdump
     environment:
@@ -148,7 +148,7 @@ services:
     ports:
       - "${MYSQL_PORT:-3307}:3306"
     volumes:
-      - ./conf/mysql:/etc/mysql/conf.d
+      - ${CONF_FOLDER}/mysql:/etc/mysql/conf.d
       - ${DATA_FOLDER}/mysql/:/var/lib/mysql
       - ${DATA_FOLDER}/dbdump/:/tmp/dbdump
     environment:
@@ -167,6 +167,7 @@ services:
     container_name: mailpit
     restart: unless-stopped
     volumes:
+      - ${CONF_FOLDER}/mailpit/:/conf
       - ${DATA_FOLDER}/mailpit/:/data
     ports:
       - ${MAILPIT_WEB_PORT:-8025}:8025
