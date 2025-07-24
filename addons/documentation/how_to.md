@@ -1,6 +1,6 @@
 🔙 [Back to readme page](../../readme.md)
 # How to
-Tips for the common operations you may need to do with the dockered-itop environment.
+Tips for the common operations you may need to do with the docker environment.
 
 ## PHP
 
@@ -78,7 +78,7 @@ index index.php index.html index.htm;
 
 ### Change the webserver
 
-Change both env var `USE_NGINX`and `USE_APACHE` in the `.env` file to `0` or `1` according to your needs.
+Change both env var `ENABLE_NGINX`and `ENABLE_APACHE` in your `.env.local` file to `0` or `1` according to your needs.
 
 Example for running Nginx:
 
@@ -87,20 +87,15 @@ ENABLE_APACHE=0
 ENABLE_NGINX=1
 ````
 
-If you want both servers, set both to `1` and bind different ports in the `docker-compose.yml` file.
+If you want both servers, set both to `1` and bind different ports in your `.env.local` file.
 
 ### Change html folder
-You can change the folder used by NGINX to serve the web application in `.env` file.\
+You can change the folder used by NGINX to serve the web application in your `.env.local` file.\
 Just set a new value to the `HTML_FOLDER` variable.
 
 ### Nginx
 
-#### Edit configuration
-
-> [!WARNING]
-> Not provided yet...
-
-#### Edit virtual hosts
+#### Edit configuration and virtual hosts
 Modify the `app.conf` file in the nginx conf directory then restart the container.
 
 ### Apache
@@ -114,15 +109,30 @@ Modify the `httpd-vhosts.conf` file in the apache conf directory then restart th
 ## Databases
 
 ### Change data folder
-You can change the folder used by databases in `.env` file.\
+You can change the folder used by databases in your `.env.local` file.\
 Just set a new value to the `DATA_FOLDER` variable.
 
-### Import dump
+### Import/Export database dump
+
+> [!NOTE]
+> A folder is mount from the host (data/dbdump) in data folder to the database container (/tmp/dbdump).
+
+#### Import
 Connect to the database container with `docker exec -it <container> bash` then use the command line to import your dump.
 
 ```bash
-mariadb --user <user> --password <database_name> < dump_file.sql
+mariadb --user <user> --password <database_name> < /tmp/dbdump/dump_file.sql
 ```
+
+#### Export
+Connect to the database container with `docker exec -it <container> bash` then use the command line to import your dump.
+
+```bash
+mariadb-dump --user <user> --password <database_name> > /tmp/dbdump/dump_file.sql
+```
+
+> > [!IMPORTANT]
+> mysql-dump is lot longer available in the mariadb container, you have to use `mariadb-dump` instead.
 
 ### MariaDB
 
@@ -166,55 +176,18 @@ For iTop, you can use this default configuration:
 	'email_transport_smtp.port' => '1025',
 ```
 
-## Docker
+### Configure Relay and Forwarding
 
-### Change host container ports
+Relay is activated by default, so you can use MailPit as a relay server to forward emails to another SMTP server.\
+You can specify witch recipient are candidates to relay via en environment variable `MAILPIT_RELAY_MATCHING` in the `.env.local` file.\
 
-For example, if you want to change the port of Nginx from `80` to `8880`, you should modify the `docker-compose.override.yml` file like this:
+A forwarding configuration is also available to forward emails to another SMTP server.
+Refer to the official documentations for more information.
 
-```yaml
-  nginx:
-    ...
-    ports:
-      - "8880:80"
-    ...
-```
+https://mailpit.axllent.org/docs/configuration/smtp-forward/
 
-### Launch docker environment
+https://mailpit.axllent.org/docs/configuration/smtp-relay/
 
-Run `docker compose up -d` with host bash in the project root directory.
-
-Use `--force-recreate` to force the recreation of containers.
-
-[Official documentation](https://docs.docker.com/compose/reference/up/)
-
-### Shut down docker environment
-
-Run `docker compose down` with host bash in the project root directory.
-
-[Official documentation](https://docs.docker.com/compose/reference/down/)
-
-### Restart a container
-
-Run `docker container restart <container>` with host bash in the project root directory or use action button in the PhpStorm container view.
-
-[Official documentation](https://docs.docker.com/engine/reference/commandline/container_restart/)
-
-### Open a container terminal
-
-Run `docker exec -it <container> bash` with host bash in the project root directory or open Docker Desktop and open a terminal in the PhpStorm container view.
-
-[Official documentation](https://docs.docker.com/engine/reference/commandline/exec/)
-
-### Show statistics
-
-Run `docker stats`
-
-[Official documentation](https://docs.docker.com/engine/reference/commandline/stats/)
-
-
-> [!TIP]
-> If you use PhpStorm, you can use service view to perform main actions. You can also find plugin for Visual Studio Code.
 
 \
 \

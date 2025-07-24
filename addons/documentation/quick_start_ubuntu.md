@@ -11,18 +11,33 @@ Follow these instructions to run dockered-itop on Ubuntu.
 From terminal
 
 * Clone dockered-itop project\
-  `git clone https://github.com/Combodo/docker_environment.git`
+```bash
+git clone https://github.com/Combodo/docker_environment.git
+```
 
 
 * Change current directory to dockered-itop directory\
-  `cd dockered_itop`
+```bash
+cd dockered_itop
+```
 
 
-* Edit `.env` file to set your own configuration, like your database password
+* Copy the containers default configuration files\
+```bash
+cp -R build/default_configuration/* conf
+```
+
+
+* Create a copy of `.env` file as `.env.local` to set your own configuration, like data folders, database password, web server you want to use, ports....
+```bash
+cp .env .env.local
+```
 
 
 * Run docker-compose\
-  `docker-compose up -d`
+```bash
+docker-compose up -d
+```
 
 ## ️✅ You are ready to go!
 

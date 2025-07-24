@@ -2,8 +2,6 @@
 
 # Browser Extension
 This extension allows you to switch between different PHP versions in your browser.\
-You also can use a public extension allowing you to add a header `x-php-version=82` for PHP 8.2 to your HTTP requests.
-
 
 You can easily switch PHP version you want to use by clicking the extension action button.
 Select the PHP version you want to use in the extension action popup.\
@@ -15,6 +13,8 @@ You also can disable the extension with a activation switch.
 > [!IMPORTANT]
 > This extension is unsigned, you need to load it as an unpacked extension in Chrome or install it in Firefox for developer edition.
 
+> [!NOTE]
+> You can use a public extension allowing you to add a header `x-php-version=82` for PHP 8.2 to your HTTP requests.
 
 
 ## Installation

@@ -3,7 +3,7 @@
 
 
 This repository contains a Docker environment for running iTop, an open-source IT service management tool.\
-The environment is designed to be easy to set up and use, with all necessary components included in the Docker Compose file.
+The environment is designed to be easy to set up and use, with all necessary components included.
 
 
 ## Documentation
@@ -12,24 +12,26 @@ The environment is designed to be easy to set up and use, with all necessary com
 
 📓 [Quick Start: Ubuntu](./addons/documentation/quick_start_ubuntu.md)
 
+📓 [iTop installation](./addons/documentation/itop_installation.md)
+
 📓 [How To](./addons/documentation/how_to.md)
 
 📓 [PhpStorm Tips](./addons/documentation/phpstorm.md)
 
 📓 [PHP Switcher Browser Extension](./addons/documentation/browser_extension.md)
 
-📓 [iTop installation](./addons/documentation/itop_installation.md)
+📓 [Docker Useful Commands](./addons/documentation/docker.md)
 
 📓 [Troubleshooting](./addons/documentation/troubleshooting.md)
 
 ## Docker containers
 
-Find below, a short description of the containers available in the Docker environment.
+Find below, a short description of containers available in the Docker environment.
 
 ![Docker Infra](/addons/documentation/images/docker_infra.png)
 
 > [!TIP]
-> Containers ports can be modified in the `docker-compose.yml` file if they don't suit you or are already used by others applications. [How To...](./addons/documentation/how_to.md#change-host-container-ports)
+> Containers ports can be modified in the `.env.local` file if they don't suit your need or are already used by others applications.
 
 ### Web Servers
 The containers in charge of serving the web pages.
@@ -52,7 +54,8 @@ The containers in charge of serving the web pages.
 #### Automatic Mode
 With automatic mode, web servers will serve pages based on the PHP version passed in the request header `X-PHP-Version`.\
 A [browser extension](./addons/documentation/browser_extension.md) (Chrome and Firefox) is provided to easily switch between PHP versions.\
-You also can use one of the official browser extensions allowing to add custom headers then set yourself the desired PHP version.
+You also can use one of the official browser extensions allowing to add custom headers then set yourself the desired PHP version.\
+`X-PHP-Version = 82` for PHP 8.2.
 
 ![PHP auto](/addons/documentation/images/docker_php_auto.png)
 
@@ -80,9 +83,9 @@ Based on `httpd:latest`
 
 > [!NOTE]
 > `httpd.conf` file is included in the apache conf directory to configure Apache settings. [How To...](./addons/documentation/how_to.md#edit-configuration-1)\
-`httpd-vhosts.conf` file is included in the apache conf directory to configure virtual hosts. [How To...](./addons/documentation/how_to.md#edit-virtual-hosts-1)
+`httpd-vhosts.conf` file is included in the apache conf directory to configure virtual hosts. [How To...](./addons/documentation/how_to.md#edit-configuration-1)
 
-### PHP FPM from 7.4 to 8.4
+### PHP FPM X.X
 The containers in charge of the PHP script processing.\
 Based on `php:x.x-fpm` image, this extended image includes `xdebug`, all needed `php extensions`, `graphviz` and a `MariaDB client` to run iTop.
 

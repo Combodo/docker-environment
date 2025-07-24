@@ -1,0 +1,5 @@
+host: ssl0.ovh.net
+port: 587
+starttls: true
+auth: plain
+username: test@combodo.com
