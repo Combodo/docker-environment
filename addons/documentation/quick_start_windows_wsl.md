@@ -45,25 +45,27 @@ Open Docker Desktop and go to `settings > Resources > WSL Integration` then chec
 
 
 * Configure Git credential manager [WSL2 Git configuration](https://learn.microsoft.com/fr-fr/windows/wsl/tutorials/wsl-git)\
-  `git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"`
+  ```git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"```
 
 
 * Clone dockered-itop project\
-  `git clone https://github.com/Combodo/docker_environment.git`
+  ```git clone https://github.com/Combodo/docker_environment.git```
 
 
 * Change current directory to dockered-itop directory\
-  `cd dockered_itop`
+  ```cd dockered_itop```
 
 
-* Edit `.env` file to set your own configuration, like your database password or the web server you want to use.
+* Copy the containers default configuration files\
+  ```cp -R build/default_configuration/* conf```
 
 
-* (optional) Edit `docker-compose.override.yml` file to set custom ports . [How To...](./how_to.md#change-host-container-ports)
-
+* Create a copy of `.env` file as `.env.local` to set your own configuration, like data folders, database password, web server you want to use, ports....
+  ```cp .env .env.local```
 
 * Run docker-compose\
-  `docker-compose up -d`
+  ```docker-compose --env-file .env.local up -d```
+
 
 ## ️✅ You are ready to go!
 

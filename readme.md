@@ -20,6 +20,8 @@ The environment is designed to be easy to set up and use, with all necessary com
 
 📓 [iTop installation](./addons/documentation/itop_installation.md)
 
+📓 [Docker commands](./addons/documentation/docker.md)
+
 📓 [Troubleshooting](./addons/documentation/troubleshooting.md)
 
 ## Docker containers
@@ -29,7 +31,7 @@ Find below, a short description of the containers available in the Docker enviro
 ![Docker Infra](/addons/documentation/images/docker_infra.png)
 
 > [!TIP]
-> Containers ports can be modified in the `docker-compose.yml` file if they don't suit you or are already used by others applications. [How To...](./addons/documentation/how_to.md#change-host-container-ports)
+> Containers ports can be modified in the `.env.local` file if they don't suit your need or are already used by others applications.
 
 ### Web Servers
 The containers in charge of serving the web pages.
@@ -80,7 +82,7 @@ Based on `httpd:latest`
 
 > [!NOTE]
 > `httpd.conf` file is included in the apache conf directory to configure Apache settings. [How To...](./addons/documentation/how_to.md#edit-configuration-1)\
-`httpd-vhosts.conf` file is included in the apache conf directory to configure virtual hosts. [How To...](./addons/documentation/how_to.md#edit-virtual-hosts-1)
+`httpd-vhosts.conf` file is included in the apache conf directory to configure virtual hosts. [How To...](./addons/documentation/how_to.md#edit-configuration-1)
 
 ### PHP FPM from 7.4 to 8.4
 The containers in charge of the PHP script processing.\
