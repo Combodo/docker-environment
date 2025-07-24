@@ -3,6 +3,3 @@ port: 587
 starttls: true
 auth: plain
 username: test@combodo.com
-password: T&.jT]Z,n?7p_{M]Dm
-allowed-recipients: 'bdalsass.combodo@gmail.com,benjamin.dalsass@combodo.com' #
-#blocked-recipients: '@example2\.com$' # optional - prevent relating to addresses or domains
