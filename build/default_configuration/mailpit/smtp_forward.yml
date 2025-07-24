@@ -1,0 +1,7 @@
+to: benjamin.dalsass@combodo.com
+host: ssl0.ovh.net
+port: 587
+starttls: true
+auth: plain
+username: test@combodo.com
+password: T&.jT]Z,n?7p_{M]Dm
