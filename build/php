@@ -3,6 +3,16 @@ ARG XDEBUG_VERSION=3.4.1
 
 FROM ${IMAGE}
 
+ARG UID
+ARG GID
+
+RUN if [ "${GID}" != "33" -a "${UID}" != "33"]; \
+ then addgroup --gid ${GID} --system dockeruser && \
+ adduser --gid ${GID} --shell /bin/sh -u ${UID} dockeruser &&\
+ sed -i "s/user = www-data/user = dockeruser/g" /usr/local/etc/php-fpm.d/www.conf && \
+ sed -i "s/group = www-data/group = dockeruser/g" /usr/local/etc/php-fpm.d/www.conf; \
+ fi
+
 ARG XDEBUG_VERSION
 
 # Update packages list
@@ -46,3 +56,7 @@ docker-php-ext-install ldap
 # Install @xdebug
 RUN pecl install xdebug-${XDEBUG_VERSION} \
     && docker-php-ext-enable xdebug
+
+USER ${UID}:${GID}
+
+CMD ["php-fpm", "-y", "/usr/local/etc/php-fpm.conf", "-R"]
