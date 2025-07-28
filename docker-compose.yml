@@ -7,6 +7,8 @@ x-php-build: &default-php-build
   args:
     IMAGE: php:7.4-fpm
     XDEBUG_VERSION: 3.1.6
+    UID: "${UID}"
+    GID: "${GID}"
 
 # php template
 x-php: &default-php
@@ -31,6 +33,8 @@ services:
       args:
         IMAGE: php:7.4-fpm
         XDEBUG_VERSION: 3.1.6
+        UID: "${UID}"
+        GID: "${GID}"
 
   php80:
     <<: *default-php
@@ -40,6 +44,8 @@ services:
       args:
         IMAGE: php:8.0-fpm
         XDEBUG_VERSION: 3.4.1
+        UID: "${UID}"
+        GID: "${GID}"
 
   php81:
     <<: *default-php
@@ -49,6 +55,8 @@ services:
       args:
         IMAGE: php:8.1-fpm
         XDEBUG_VERSION: 3.4.1
+        UID: "${UID}"
+        GID: "${GID}"
 
   php82:
     <<: *default-php
@@ -58,6 +66,8 @@ services:
       args:
         IMAGE: php:8.2-fpm
         XDEBUG_VERSION: 3.4.1
+        UID: "${UID}"
+        GID: "${GID}"
 
   php83:
     <<: *default-php
@@ -67,6 +77,8 @@ services:
       args:
         IMAGE: php:8.3-fpm
         XDEBUG_VERSION: 3.4.1
+        UID: "${UID}"
+        GID: "${GID}"
 
   php84:
     <<: *default-php
@@ -76,9 +88,15 @@ services:
       args:
         IMAGE: php:8.4-fpm
         XDEBUG_VERSION: 3.4.1
+        UID: "${UID}"
+        GID: "${GID}"
 
   apache:
     image: httpd:latest
+    user: "${UID}:${GID}"
+    environment:
+      APACHE_RUN_USER: "${UID}"
+      APACHE_RUN_GROUP: "${GID}"
     ports:
       - "${APACHE_PORT_88:-88}:88"
       - "${APACHE_PORT_443:-443}:443"
@@ -93,6 +111,7 @@ services:
       - ./conf/apache/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
       - ./conf/certs:/etc/apache/certs
       - ${HTML_FOLDER}:/var/www/html/
+      - ./apache2:/usr/local/apache2/logs
     restart: always
 #    depends_on:
 #      - php74
@@ -120,13 +139,6 @@ services:
       - ./conf/certs:/etc/nginx/certs
       - ${HTML_FOLDER}:/var/www/html/
     restart: always
-#    depends_on:
-#      - php74
-#      - php80
-#      - php81
-#      - php82
-#      - php83
-#      - php84
     deploy:
       replicas: ${ENABLE_NGINX:-0}
 
