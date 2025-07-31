@@ -1,12 +1,18 @@
 name: docker_environment
 
+# php build args template
+x-php-build-args: &default-php-build-args
+  IMAGE: php:7.4-fpm
+  XDEBUG_VERSION: 3.1.6
+  UID: ${UID:-1000}
+  GID: ${GID:-1000}
+
 # php build template
 x-php-build: &default-php-build
   dockerfile: php
   context: ./build
   args:
-    IMAGE: php:7.4-fpm
-    XDEBUG_VERSION: 3.1.6
+    <<: *default-php-build-args
 
 # php template
 x-php: &default-php
@@ -78,7 +84,13 @@ services:
         XDEBUG_VERSION: 3.4.1
 
   apache:
-    image: httpd:latest
+    container_name: apache
+    build:
+      dockerfile: apache
+      context: ./build
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
     ports:
       - "${APACHE_PORT_AUTO:-88}:88"
       - "${APACHE_PORT_443:-443}:443"
@@ -105,7 +117,13 @@ services:
       replicas: ${ENABLE_APACHE:-0}
 
   nginx:
-    image: nginx:alpine
+    container_name: nginx
+    build:
+      dockerfile: nginx
+      context: ./build
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
     ports:
       - "${NGINX_PORT_AUTO:-88}:88"
       - "${NGINX_PORT_443:-443}:443"
@@ -132,6 +150,7 @@ services:
 
   mariadb:
     image: mariadb
+    container_name: mariadb
     restart: unless-stopped
     ports:
       - "${MARIADB_PORT:-3306}:3306"
@@ -144,6 +163,7 @@ services:
 
   mysql:
     image: mysql
+    container_name: mysql
     restart: unless-stopped
     ports:
       - "${MYSQL_PORT:-3307}:3306"
@@ -156,6 +176,7 @@ services:
 
   adminer:
     image: adminer
+    container_name: adminer
     restart: unless-stopped
     ports:
       - "${ADMINER_PORT:-8080}:8080"
@@ -178,15 +199,11 @@ services:
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
       MP_ENABLE_SPAMASSASSIN: postmark
-#      MP_SMTP_FORWARD_CONFIG: ${CONF_FOLDER}/smtp_forward.yml
+#      MP_SMTP_FORWARD_CONFIG: /conf/smtp_forward.yml
 #      MP_SMTP_FORWARD_PASSWORD: ${COMBODO_SMTP_TEST_PASSWORD}
 #      MP_SMTP_FORWARD_TO: ${MAILPIT_FORWARD_USER}
-      MP_SMTP_RELAY_CONFIG: ${CONF_FOLDER}/smtp_relay.yml
+      MP_SMTP_RELAY_CONFIG: /conf/smtp_relay.yml
       MP_SMTP_RELAY_PASSWORD: ${COMBODO_SMTP_TEST_PASSWORD}
       MP_SMTP_RELAY_MATCHING: ${MAILPIT_RELAY_MATCHING}
     deploy:
       replicas: ${ENABLE_MAILPIT:-0}
-
-networks:
-  multi_php_nginx:
-

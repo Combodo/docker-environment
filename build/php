@@ -5,6 +5,11 @@ FROM ${IMAGE}
 
 ARG XDEBUG_VERSION
 
+ARG UID=1000
+ARG GID=1000
+
+RUN usermod -u ${UID} www-data && groupmod -g ${GID} www-data
+
 # Update packages list
 RUN apt-get update
 

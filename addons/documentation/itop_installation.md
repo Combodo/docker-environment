@@ -9,13 +9,6 @@
 ### Clone the iTop repository
 `git clone https://github.com/Combodo/iTop.git`
 
-### Updating permissions
-`sudo chown www-data iTop -R && sudo chmod g+w iTop -R`
-
-Make sure to replace `{YOUR_USERNAME}` with your actual username in the following command :
-
-`git config --global --add safe.directory /home/{YOUR_USERNAME}/docker_environment/html/iTop`
-
 ### Configure iTop
 Visit http://localhost:88/iTop/ to start configuring the software.
 
