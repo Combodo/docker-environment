@@ -23,8 +23,6 @@ x-php: &default-php
     - ${CONF_FOLDER}/php/php.ini:/usr/local/etc/php/conf.d/php.ini
     - ${CONF_FOLDER}/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
     - ${HTML_FOLDER}:/var/www/html/
-  extra_hosts:
-    - host.docker.internal:host-gateway
   restart: always
 
 services:
