@@ -17,6 +17,7 @@ x-php-build: &default-php-build
 # php template
 x-php: &default-php
   container_name: php
+  user: ${UID:-1000}
   build:
     <<: *default-php-build
   volumes:
