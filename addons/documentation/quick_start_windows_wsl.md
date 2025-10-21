@@ -4,7 +4,9 @@
 Follow these instructions to install and run dockered-itop on Windows.
 
 ## Prerequisites
-Windows 10 > versions 2004 (>= build 19041) or Windows 11
+Windows 10 > versions 2004 (>= build 19041) or Windows 11.
+
+Git for Windows [Official Install](https://git-scm.com/download/win)
 
 ## 1️⃣ Install Docker Desktop
 Follow official installation instructions.\
@@ -48,8 +50,13 @@ Open Docker Desktop and go to `settings > Resources > WSL Integration` then chec
 
 * Configure Git credential manager [WSL2 Git configuration](https://learn.microsoft.com/fr-fr/windows/wsl/tutorials/wsl-git)\
 ```bash
-git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"
+
+git config --global credential.helper "/mnt/c/Users/{MY_USER}/AppDate/Local/Programs/Git/mingw64/bin/git-credential-manager.exe"
 ```
+
+> [!WARNING]
+> The git path may change depending on your Git for Windows installation.\
+> For older versions, you may need to use this path: `/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe`.
 
 
 * Clone dockered-itop project\
@@ -60,7 +67,7 @@ git clone https://github.com/Combodo/docker_environment.git
 
 * Change current directory to dockered-itop directory\
 ```bash
-cd dockered_itop
+cd dockered_environment
 ```
 
 
