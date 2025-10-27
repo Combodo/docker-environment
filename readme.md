@@ -146,6 +146,17 @@ Based on `axllent/mailpit` image.
 * `8025` WebUI
 * `1025` SMTP
 
+### Script-server
+The container for scripts execution.
+
+Script-server allows you to execute pre-configured CLI scripts directly from a Web UI. No need for SSH connection, knowing commands exact syntax.
+Based on `bugy/script-server` image.
+
+🐳 [Docker official image page](https://hub.docker.com/r/bugy/script-server)
+
+#### Default Listened Ports
+* `8090` WebUI
+
 
 
 

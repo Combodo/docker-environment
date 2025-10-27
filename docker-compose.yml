@@ -206,3 +206,23 @@ services:
       MP_SMTP_RELAY_MATCHING: ${MAILPIT_RELAY_MATCHING}
     deploy:
       replicas: ${ENABLE_MAILPIT:-0}
+
+  script_server:
+    build:
+      dockerfile: script-server
+      context: ./build
+    container_name: script_server
+    restart: unless-stopped
+    ports:
+      - "${SCRIPT_SERVER_PORT:-5000}:5000"
+    volumes:
+      - ${CONF_FOLDER}/script-server/conf:/app/conf
+      - ${DATA_FOLDER}/script-server/scripts:/app/scripts
+      # For accessing HTML files content (read-only) from scripts
+      - ${HTML_FOLDER}:/host_html:ro
+      # For container to container script execution
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TZ=Europe/Paris
+    deploy:
+      replicas: ${ENABLE_SCRIPT_SERVER:-0}

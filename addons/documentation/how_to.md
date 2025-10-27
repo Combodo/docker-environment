@@ -189,6 +189,15 @@ https://mailpit.axllent.org/docs/configuration/smtp-forward/
 https://mailpit.axllent.org/docs/configuration/smtp-relay/
 
 
+## Script-server
+
+### Add a script
+
+  * Add your script file in `data/script-server/scripts` folder.
+  * Add a configuration file in `conf/script-server/config/runners` folder describing your script (name, description, parameters, ... Full documentation [here](https://github.com/bugy/script-server/wiki/Script-config)).
+  * Restart the script-server container.
+
+
 \
 \
 🔙 [Back to readme page](../../readme.md)
