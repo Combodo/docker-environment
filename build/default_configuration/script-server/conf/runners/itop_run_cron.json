@@ -1,0 +1,59 @@
+{
+  "name": "iTop - Run CRON",
+  "description": "Run iTop CRON job to execute background tasks such as sending notifications, performing backups, ...\n_Note: If your iTop isn't listed, try to change the scan max depth, but mind that it will impact the page loading time._",
+  "script_path": "scripts/itop_run_cron.sh",
+  "parameters": [
+    {
+      "name": "iTop instance",
+      "description": "iTop instance you want to run the CRON for",
+      "required": true,
+      "param": "--itop-instance",
+      "type": "list",
+      "values": {
+        "script": "scripts/macros/list_itop_instance_with_valid_cron.sh",
+        "shell": true
+      }
+    },
+    {
+      "name": "Auth. user",
+      "description": "iTop user login to execute the CRON",
+      "required": true,
+      "param": "--itop-auth-user",
+      "type": "text",
+      "default": "admin"
+    },
+    {
+      "name": "Auth. password",
+      "description": "iTop user password to execute the CRON",
+      "required": true,
+      "param": "--itop-auth-pwd",
+      "type": "text",
+      "default": "admin"
+    },
+    {
+      "name": "PHP version",
+      "description": "PHP version to run the CRON with (ensure to select one that is compatible with the selected iTop instance)",
+      "required": true,
+      "param": "--php-version",
+      "type": "list",
+      "values": ["74", "80", "81", "82", "83", "84"],
+      "values_ui_mapping": {
+        "74": "PHP 7.4",
+        "80": "PHP 8.0",
+        "81": "PHP 8.1",
+        "82": "PHP 8.2",
+        "83": "PHP 8.3",
+        "84": "PHP 8.4"
+      },
+      "default": "81"
+    },
+    {
+      "name": "Verbose",
+      "description": "If set to true, the CRON will output detailed information about its tasks, execution times, and any issues encountered",
+      "required": false,
+      "param": "--verbose",
+      "type": "boolean",
+      "no_value": "true"
+    }
+  ]
+}

@@ -9,6 +9,9 @@ ARG GID=1000
 
 RUN usermod -u ${UID} www-data && groupmod -g ${GID} www-data
 
+# Install @procps for "ps" & "pgrep" commands
+RUN apt-get update && apt-get install -y procps
+
 # Install @mariadb-client & @graphviz
 RUN apt-get update && apt-get install mariadb-client graphviz -y
 

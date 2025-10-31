@@ -3,5 +3,6 @@
 *
 # Except for this file
 !.gitignore
-!mailpit
 !dbdump
+!mailpit
+!script-server
