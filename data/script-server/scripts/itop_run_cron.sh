@@ -163,4 +163,4 @@ print_default "Executing: ${CRON_COMMAND}"
 print_default ""
 
 # Run command synchronously to keep stdout
-bash -c "$CRON_COMMAND"
+bash -c "${CRON_COMMAND}"
