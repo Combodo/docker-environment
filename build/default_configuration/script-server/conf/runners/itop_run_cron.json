@@ -10,7 +10,7 @@
       "param": "--itop-instance",
       "type": "list",
       "values": {
-        "script": "scripts/itop_run_cron__itop_instance_param_values.sh",
+        "script": "scripts/macros/list_itop_instance_with_valid_cron.sh",
         "shell": true
       }
     },
