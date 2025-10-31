@@ -1,0 +1,18 @@
+{
+  "name": "iTop - Unlock setup",
+  "description": "Unlock iTop setup by making the configuration file writable\n_Note: If your iTop isn't listed, try to change the scan max depth, but mind that it will impact the page loading time._",
+  "script_path": "scripts/itop_unlock_setup.sh",
+  "parameters": [
+    {
+      "name": "iTop instance",
+      "description": "iTop instance you want to unlock the setup for",
+      "required": true,
+      "param": "--itop-instance",
+      "type": "list",
+      "values": {
+        "script": "scripts/macros/list_itop_instance_with_valid_cron.sh",
+        "shell": true
+      }
+    }
+  ]
+}
