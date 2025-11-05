@@ -29,15 +29,19 @@ Click on `+` button and choose `From Docker, Vagrant, VM, WSL...`
 
 ![CLI](/addons/documentation/images/phpstorm/cli.png)
 
-Choose `Docker` and set the following options:\
-Choose the php image you want to use from the list `php:8.1-fpm`
+Choose `Docker Compose` and set the following options:\
+Choose the php service you want to use from the list (e.g. `php84`).
 
 ![CLI Edit](/addons/documentation/images/phpstorm/cli_edit.png)
 
-Create a new server and set the following options:\
-Choose `WSL` with your `docker host`.
+Open the environment variables editor.\
+Set the `CONF_FOLDER` and `HTML_FOLDER` variables as in the `.env.local` file of your `docker_environment` instance.
 
-![CLI Docker Server](/addons/documentation/images/phpstorm/docker_server.png)
+![CLI Env Vars](/addons/documentation/images/phpstorm/cli_env_vars.png)
+
+Confirm the settings, then choose the `Connect to an existing container` option, in the `Lifecycle` section.
+
+![CLI Lifecycle](/addons/documentation/images/phpstorm/cli_interpreter_edit.png)
 
 You need to set addition information from php section.
 
@@ -47,11 +51,6 @@ First set `path mappings` for the project.\
 Set the correct location of your project.
 
 ![CLI Path Mapping](/addons/documentation/images/phpstorm/cli_path_mapping.png)
-
-Then set `container settings` for the project.\
-You need to set the `network name` dockered_itop_default.
-
-![CLI Container Settings](/addons/documentation/images/phpstorm/cli_container_settings.png)
 
 Add other php versions as needed.
 
