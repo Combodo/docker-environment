@@ -51,7 +51,7 @@ Open Docker Desktop and go to `settings > Resources > WSL Integration` then chec
 * Configure Git credential manager [WSL2 Git configuration](https://learn.microsoft.com/fr-fr/windows/wsl/tutorials/wsl-git)\
 ```bash
 
-git config --global credential.helper "/mnt/c/Users/{MY_USER}/AppDate/Local/Programs/Git/mingw64/bin/git-credential-manager.exe"
+git config --global credential.helper "/mnt/c/Users/{MY_USER}/AppData/Local/Programs/Git/mingw64/bin/git-credential-manager.exe"
 ```
 
 > [!WARNING]
