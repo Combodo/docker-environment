@@ -50,6 +50,9 @@ You need to set addition information from php section.
 First set `path mappings` for the project.\
 Set the correct location of your project.
 
+> [!WARNING]
+> You will have to set the path mappings for every projects, its not a shared setting.
+
 ![CLI Path Mapping](/addons/documentation/images/phpstorm/cli_path_mapping.png)
 
 Add other php versions as needed.
