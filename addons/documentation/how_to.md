@@ -22,9 +22,10 @@ You may also want to have a specific init file for a php version, you have to ov
 > Browse [XDebug settings](https://xdebug.org/docs/all_settings) for more information.
 
 ### Add a new php version
-Duplicate a php section in `docker-compose.yml` then run `docker compose up -d`.\
-Bind a port in the web server then edit the server configuration to add a new virtual host.\
-Add the new php version in the Chrome extension if using it.
+  * Duplicate a php section in `docker-compose.yml` then run `docker compose up -d`.\
+  * Bind a port in the web server then edit the server configuration to add a new virtual host.\
+  * Add the new php version in the Chrome extension if using it.\
+  * Add the new php version in the Script Server script that runs the CRON job (`build/default_configuration/script-server/conf/runners/itop_run_cron.json`).
 
 ```yaml
   php85:
