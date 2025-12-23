@@ -193,12 +193,23 @@ print_inline_default "Do you want to rebuild and restart the Docker containers n
 read -r rebuild_containers_answer
 rebuild_containers_answer=${rebuild_containers_answer:-y}
 if [[ "${rebuild_containers_answer}" == "y" ]]; then
+  print_inline_default "Do you want to rebuild container using Docker cache? (y/n) [y] "
+  read -r rebuild_containers_using_cache_answer
+  rebuild_containers_using_cache_answer=${rebuild_containers_using_cache_answer:-y}
+
   print_default "Stopping containers..."
   docker compose down
+
   print_default "Rebuilding containers..."
-  docker compose build --no-cache
+  if [[ "${rebuild_containers_using_cache_answer}" == "y" ]]; then
+    docker compose build
+  else
+    docker compose build --no-cache
+  fi
+
   print_default "Starting containers..."
   docker compose up -d
+
   print_success "Containers restarted."
 else
   print_warning "Rebuild and restart skipped. Please remember to manually rebuild and restart your Docker containers to apply the updates."
