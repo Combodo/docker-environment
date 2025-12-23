@@ -1,2 +1,5 @@
 .env.local
 .env.*.local
+
+# Local auto update log
+auto-update.log
