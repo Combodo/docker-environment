@@ -2,6 +2,56 @@
 # How to
 Tips for the common operations you may need to do with the docker environment.
 
+## Table of Contents
+
+- [Docker environment](#docker-environment)
+  - [Update procedure](#update-procedure)
+- [PHP](#php)
+  - [Change PHP settings](#change-php-settings)
+  - [Change XDebug settings](#change-xdebug-settings)
+  - [Add a new php version](#add-a-new-php-version)
+- [Web Server](#web-server)
+  - [Change the webserver](#change-the-webserver)
+  - [Change html folder](#change-html-folder)
+  - [Nginx](#nginx)
+    - [Edit configuration and virtual hosts](#edit-configuration-and-virtual-hosts)
+  - [Apache](#apache)
+    - [Edit configuration](#edit-configuration)
+    - [Edit virtual hosts](#edit-virtual-hosts)
+- [Databases](#databases)
+  - [Change data folder](#change-data-folder)
+  - [Import/Export database dump](#importexport-database-dump)
+  - [MariaDB](#mariadb)
+    - [Connect from host](#connect-from-host)
+    - [Edit configuration](#edit-configuration-1)
+  - [MySQL](#mysql)
+    - [Connect from host](#connect-from-host-1)
+    - [Edit configuration](#edit-configuration-2)
+- [Adminer](#adminer)
+  - [See database data](#see-database-data)
+- [MailPit](#mailpit)
+  - [Debug mailer](#debug-mailer)
+  - [Configure Relay and Forwarding](#configure-relay-and-forwarding)
+- [Script-server](#script-server)
+  - [Add a script](#add-a-script)
+
+## Docker environment
+
+### Update procedure
+Updating this Docker environment to the latest version allows you to get the latest improvements and bug fixes such as new services, new scripts and new env. variables.
+
+Whether you cloned the Git repository or extracted a zip archive of the project, starting with v0.2.0, all you have to do is run the auto update script which:
+  * Update project files
+  * Deploy default configuration files
+  * Add any new env. variable in your `.env.local` file with default values
+  * Rebuild and restart the containers
+
+To do so, simply run the following command from the project root folder:
+
+```bash
+./auto-update.sh
+```
+
 ## PHP
 
 ### Change PHP settings
