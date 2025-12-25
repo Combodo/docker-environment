@@ -5,6 +5,10 @@
 This repository contains a Docker environment for running iTop, an open-source IT service management tool.\
 The environment is designed to be easy to set up and use, with all necessary components included.
 
+> [!WARNING]
+> Mind that this environment is intended for development and testing purposes only.\
+> It should not be used for production.
+
 
 ## Documentation
 
