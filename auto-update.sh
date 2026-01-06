@@ -208,7 +208,11 @@ if [[ "${rebuild_containers_answer}" == "y" ]]; then
   fi
 
   print_default "Starting containers..."
-  docker compose up -d
+  if [ -f .env.local ]; then
+    docker compose --env-file .env.local up -d
+  else
+    docker compose up -d
+  fi
 
   print_success "Containers restarted."
 else
