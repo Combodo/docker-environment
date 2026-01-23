@@ -227,6 +227,14 @@ For iTop, you can use this default configuration:
 	'email_transport_smtp.port' => '1025',
 ```
 
+There's also a local SMTP server running on PHP's container allowing you to redirect to MailPit without changing the application configuration.
+If you changed mailpit port, change it also in the following file `conf/msmtprc/msmtprc`.
+```php
+	// email_transport: Mean to send emails: PHPMail (uses the function mail()), SMTP (implements the client protocol) or SMTP_OAuth (connect to the server using OAuth 2.0)
+	//	default: 'PHPMail'
+	'email_transport' => 'PHPMail',
+```
+
 ### Configure Relay and Forwarding
 
 Relay is activated by default, so you can use MailPit as a relay server to forward emails to another SMTP server.\
