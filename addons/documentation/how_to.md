@@ -52,6 +52,21 @@ To do so, simply run the following command from the project root folder:
 ./auto-update.sh
 ```
 
+<details>
+<summary>How to upgrade from a version older than v0.2.0</summary>
+
+If you are using an old version that doesn't have the `auto-update.sh` script, follow these steps to get up to speed:
+  * Download the latest version of the `auto-update.sh` script [here](https://github.com/Combodo/docker-environment/blob/master/auto-update.sh).
+  * Place it in the root folder of your docker environment (most likely `docker-environment` or `docker_environment` folder).
+  * Make it executable by running the command: `chmod +x auto-update.sh`.
+  * Fix your `.env` file by putting single quotes around the `MAILPIT_RELAY_MATCHING` value, for example:
+    * Replace `MAILPIT_RELAY_MATCHING=(user\.combodo@gmail\.com|user@combodo\.com)`
+    * With `MAILPIT_RELAY_MATCHING='(user\.combodo@gmail\.com|user@combodo\.com)'`
+  * Fix your `.env.local` file the same way if you have one.
+
+You can now run the auto update script as described above!
+</details>
+
 ## PHP
 
 ### Change PHP settings
