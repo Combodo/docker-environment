@@ -40,7 +40,7 @@ Tips for the common operations you may need to do with the docker environment.
 ### Update procedure
 Updating this Docker environment to the latest version allows you to get the latest improvements and bug fixes such as new services, new scripts and new env. variables.
 
-Whether you cloned the Git repository or extracted a zip archive of the project, starting with v0.2.0, all you have to do is run the auto update script which:
+Whether you cloned the Git repository or extracted a zip archive of the project, starting with v0.3.0, all you have to do is run the auto update script which:
   * Update project files
   * Deploy default configuration files
   * Add any new env. variable in your `.env.local` file with default values
@@ -53,7 +53,7 @@ To do so, simply run the following command from the project root folder:
 ```
 
 <details>
-<summary>How to upgrade from a version older than v0.2.0</summary>
+<summary>How to upgrade from a version older than v0.3.0</summary>
 
 If you are using an old version that doesn't have the `auto-update.sh` script, follow these steps to get up to speed:
   * Download the latest version of the `auto-update.sh` script [here](https://github.com/Combodo/docker-environment/blob/master/auto-update.sh).
