@@ -29,7 +29,3 @@ RUN set -eux; \
 # Install @msmtp
 RUN apt-get update && apt-get install -y --no-install-recommends msmtp ca-certificates \
     && rm -rf /var/lib/apt/lists/*
-
-COPY ../conf/msmtprc/msmtprc /var/www/.msmtprc
-RUN chown www-data:www-data /var/www/.msmtprc \
-&& chmod 600 /var/www/.msmtprc
