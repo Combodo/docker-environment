@@ -1,0 +1,7 @@
+/* Documentation on how to customize theme can be found here: https://github.com/bugy/script-server/wiki/Themes */
+
+/* Overload the terminal yellow color as it has no contrast in the Script-Server webpage */
+span.text_color_yellow,
+span.text_color_yellow a {
+    color: #dd8700 !important;
+}
