@@ -64,7 +64,7 @@ fi
 # - Build absolute path to iTop instance on script-server container
 ITOP_INSTANCE_LOCAL_ABS_PATH="/host_html/${ITOP_INSTANCE_REL_PATH}"
 # - Build absolute path to iTop instance on webserver container
-#   Important: `/var/www/html/` is the webserver root path inside the `php` Docker containers
+#   Important: `/var/www/html/` is the webserver root path inside the `apache` Docker containers
 ITOP_INSTANCE_REMOTE_ABS_PATH="/var/www/html/${ITOP_INSTANCE_REL_PATH}"
 # - Build absolute path to iTop CRON file (both local and remote)
 ITOP_CONF_LOCAL_ABS_PATH="${ITOP_INSTANCE_LOCAL_ABS_PATH}/conf/production/config-itop.php"
