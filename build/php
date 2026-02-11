@@ -7,6 +7,7 @@ ARG XDEBUG_VERSION
 ARG UID=1000
 ARG GID=1000
 
+# Make sure www-data user has the same uid/gid as the host user to avoid permission issues
 RUN usermod -u ${UID} www-data && groupmod -g ${GID} www-data
 
 # Install @procps for "ps" & "pgrep" commands
@@ -15,11 +16,11 @@ RUN apt-get update && apt-get install -y procps
 # Install @mariadb-client & @graphviz
 RUN apt-get update && apt-get install mariadb-client graphviz -y
 
-# install php extensions
+# Install php extensions
 COPY --from=ghcr.io/mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
-
 RUN install-php-extensions gd xdebug apcu imap mysqli soap zip ldap
 
+# install Composer
 RUN set -eux; \
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php -r "if (hash_file('sha384', 'composer-setup.php') === 'c8b085408188070d5f52bcfe4ecfbee5f727afa458b2573b8eaaf77b3419b0bf2768dc67c86944da1544f06fa544fd47') { echo 'Installer verified'.PHP_EOL; } else { echo 'Installer corrupt'.PHP_EOL; unlink('composer-setup.php'); exit(1); }" && \
