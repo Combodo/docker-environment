@@ -271,6 +271,13 @@ https://mailpit.axllent.org/docs/configuration/smtp-relay/
   * Add a configuration file in `conf/script-server/config/runners` folder describing your script (name, description, parameters, ... Full documentation [here](https://github.com/bugy/script-server/wiki/Script-config)).
   * Restart the script-server container.
 
+## kCacheGrind
+
+### Open a cachegrind file
+
+  * Open the kcachegrind application http://localhost:8088/vnc.html?path=vnc&autoconnect=true&resize=remote&reconnect=true&show_dot=true.
+  * Click on "File" then "Open" and select the cachegrind file you want to open from the `data` folder.
+
 
 \
 \
