@@ -26,6 +26,7 @@ x-php: &default-php
     - ${CONF_FOLDER}/msmtprc/msmtprc:/var/www/.msmtprc:ro
     - ${HTML_FOLDER}:/var/www/html/
     - ${DATA_FOLDER}/php/coverage:${PHP_COVERAGE_OUTPUT_FOLDER}
+    - ${DATA_FOLDER}/php/profile:${PHP_PROFILE_OUTPUT_FOLDER}
   restart: always
 
 services:
@@ -241,3 +242,12 @@ services:
       - TZ=Europe/Paris
     deploy:
       replicas: ${ENABLE_SCRIPT_SERVER:-0}
+
+  kcachegrind:
+    image: nedix/kcachegrind
+    ports:
+      - ${KCACHE_GRIND_WEB_PORT:-8088}:80
+    volumes:
+        - ${DATA_FOLDER}/php/profile:/data
+
+
