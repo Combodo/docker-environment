@@ -1,5 +1,10 @@
 FROM bugy/script-server:1.18.0
 
+# Install Git & sudo
+RUN apt-get update && \
+    apt-get install -y git sudo && \
+    rm -rf /var/lib/apt/lists/*
+
 # Install Docker CLI, this will allow Script Server to execute scripts in other containers
 RUN apt-get update && \
     apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release && \

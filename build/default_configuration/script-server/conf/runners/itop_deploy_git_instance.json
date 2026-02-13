@@ -1,0 +1,41 @@
+{
+  "name": "iTop - Deploy core branch",
+  "description": "Deploy an iTop core instance based on the chosen Git branch.\n_Note: Only files from iTop core repository will be updated. Extensions won't be._",
+  "script_path": "scripts/itop_deploy_git_instance.sh",
+  "parameters": [
+    {
+      "name": "Core branch",
+      "description": "iTop core branch to deploy.\nListed branches are from Combodo's iTop repository on GitHub, local and fork branches are not available.",
+      "required": true,
+      "param": "--itop-core-branch",
+      "type": "list",
+      "values": {
+        "script": "scripts/macros/list_itop_core_branches.sh",
+        "shell": true
+      }
+    },
+    {
+      "name": "Deployment path",
+      "description": "Relative path (from Docker HTML folder) where iTop will be deployed.\nIf no path specified, branch name will be used as deployment path (e.g. `feature/something-really-awesome` branch will be deployed in `<DOCKER_HTML_FOLDER>/itop/core-branches/feature/something-really-awesome`).",
+      "required": false,
+      "param": "--itop-deployment-path",
+      "type": "text"
+    },
+    {
+      "name": "Delete existing files",
+      "description": "If set to true, any existing extensions (`/extensions`, `/data/production-modules`), customizations (`data/production.delta.xml`) and configuration files will be deleted.",
+      "required": false,
+      "param": "--delete-existing-files",
+      "type": "boolean",
+      "no_value": "true"
+    },
+    {
+      "name": "Delete existing database",
+      "description": "If set to true, any existing database for the current instance (based on the configuration file) will be dropped.",
+      "required": false,
+      "param": "--delete-existing-db",
+      "type": "boolean",
+      "no_value": "true"
+    }
+  ]
+}

@@ -234,8 +234,8 @@ services:
     volumes:
       - ${CONF_FOLDER}/script-server/conf:/app/conf
       - ${DATA_FOLDER}/script-server/scripts:/app/scripts
-      # For accessing HTML files content (read-only) from scripts
-      - ${HTML_FOLDER}:/host_html:ro
+      # For accessing HTML files content from scripts
+      - ${HTML_FOLDER}:/host_html
       # For container to container script execution
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
