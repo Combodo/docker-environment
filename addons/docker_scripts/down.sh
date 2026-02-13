@@ -1,1 +1,2 @@
-docker-compose down
+cd ../../
+docker compose --env-file .env.local down

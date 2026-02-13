@@ -26,6 +26,7 @@ x-php: &default-php
     - ${CONF_FOLDER}/msmtprc/msmtprc:/var/www/.msmtprc:ro
     - ${HTML_FOLDER}:/var/www/html/
     - ${DATA_FOLDER}/php/coverage:${PHP_COVERAGE_OUTPUT_FOLDER}
+    - ${DATA_FOLDER}/php/profile:${PHP_PROFILE_OUTPUT_FOLDER}
   restart: always
 
 services:
@@ -84,6 +85,15 @@ services:
         IMAGE: php:8.4-fpm
         XDEBUG_VERSION: 3.4.5
 
+  php85:
+    <<: *default-php
+    container_name: php8.5
+    build:
+      <<: *default-php-build
+      args:
+        IMAGE: php:8.5-fpm
+        XDEBUG_VERSION: 3.4.5
+
   apache:
     container_name: apache
     build:
@@ -101,6 +111,7 @@ services:
       - "${APACHE_PORT_82:-82}:82"
       - "${APACHE_PORT_83:-83}:83"
       - "${APACHE_PORT_84:-84}:84"
+      - "${APACHE_PORT_85:-85}:85"
     volumes:
       - ${CONF_FOLDER}/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
       - ${CONF_FOLDER}/apache/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
@@ -114,6 +125,7 @@ services:
 #      - php82
 #      - php83
 #      - php84
+#      - php85
     deploy:
       replicas: ${ENABLE_APACHE:-0}
 
@@ -134,6 +146,7 @@ services:
       - "${NGINX_PORT_82:-82}:82"
       - "${NGINX_PORT_83:-83}:83"
       - "${NGINX_PORT_84:-84}:84"
+      - "${NGINX_PORT_85:-85}:85"
     volumes:
       - ${CONF_FOLDER}/nginx:/etc/nginx/conf.d
       - ${CONF_FOLDER}/certs:/etc/nginx/certs
@@ -146,6 +159,7 @@ services:
 #      - php82
 #      - php83
 #      - php84
+#      - php85
     deploy:
       replicas: ${ENABLE_NGINX:-0}
 
@@ -228,3 +242,12 @@ services:
       - TZ=Europe/Paris
     deploy:
       replicas: ${ENABLE_SCRIPT_SERVER:-0}
+
+  kcachegrind:
+    image: nedix/kcachegrind
+    ports:
+      - ${KCACHE_GRIND_WEB_PORT:-8088}:80
+    volumes:
+        - ${DATA_FOLDER}/php/profile:/data
+
+
