@@ -250,4 +250,11 @@ services:
     volumes:
         - ${DATA_FOLDER}/php/profile:/data
 
+  node:
+    image: node:${NODE_DOCKER_VERSION:-24}
+    container_name: node
+    user: ${UID:-1000}
+    working_dir: /var/www/html
+    volumes:
+      - ${HTML_FOLDER}:/var/www/html/
 
