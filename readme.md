@@ -61,10 +61,8 @@ You also can use one of the official browser extensions allowing to add custom h
 
 
 #### Nginx (default)
-The container for Nginx webserver.\
-Official build of Nginx based on `nginx:alpine`
-
-🐳 [Docker official image page](https://hub.docker.com/_/nginx)
+Nginx webserver.\
+Official build of Nginx based on `nginx:alpine` 🐳 [Docker official image page](https://hub.docker.com/_/nginx)
 
 > [!NOTE]
 > A self-signed certificate is included in the certs webserver conf directory allowing `HTTPS`.
@@ -73,7 +71,7 @@ Official build of Nginx based on `nginx:alpine`
 > `app.conf` file is included in the nginx conf directory to configure Nginx settings. [How To...](./addons/documentation/how_to.md#edit-configuration)
 
 #### Apache
-The container for Apache webserver.\
+Apache webserver.\
 Official build based on `httpd:latest` 🐳 [Docker official image page](https://hub.docker.com/_/httpd)
 
 > [!NOTE]
@@ -84,7 +82,6 @@ Official build based on `httpd:latest` 🐳 [Docker official image page](https:/
 `httpd-vhosts.conf` file is included in the apache conf directory to configure virtual hosts. [How To...](./addons/documentation/how_to.md#edit-configuration-1)
 
 ### PHP FPM X.X
-The containers in charge of the PHP script processing.\
 While designed for web development, the PHP scripting language also provides general-purpose use.\
 Custom build based on `php:x.x-fpm` image, this extended image includes `xdebug`, all needed `php extensions`, `graphviz` and a `MariaDB client` to run iTop 🐳 [Docker official image page](https://hub.docker.com/_/php)
 
@@ -97,7 +94,6 @@ Custom build based on `php:x.x-fpm` image, this extended image includes `xdebug`
 > You can  add a new PHP version. [How To...](./addons/documentation/how_to.md#add-a-new-php-version)
 
 ### MariaDB
-The container for MariaDB database.\
 MariaDB Server is a high performing open source relational database, forked from MySQL.\
 Official build based on `mariadb` image. 🐳 [Docker official image page](https://hub.docker.com/_/mariadb)
 
@@ -113,7 +109,6 @@ You also need to set `db_tls.enabled' => true` in iTop configurations.
 * `3306`
 
 ### MySQL
-The container for MySQL database.\
 MySQL is a widely used, open-source relational database management system (RDBMS).\
 Official build based on `mysql` image. 🐳 [Docker official image page](https://hub.docker.com/_/mysql)
 
@@ -129,7 +124,6 @@ You also need to set `db_tls.enabled' => true` in iTop configurations.
 * `3307`
 
 ### Adminer
-The container for database web administration.\
 Database management in a single PHP file.\
 Official build based on `adminer` image. 🐳 [Docker official image page](https://hub.docker.com/_/adminer)
 
@@ -137,7 +131,6 @@ Official build based on `adminer` image. 🐳 [Docker official image page](https
 * `8080`
 
 ### MailPit
-The container for mailer testing.\
 Mailpit is packed full of features for developers wanting to test SMTP and emails. It acts as an SMTP server, provides a modern web interface to view & test intercepted emails. It also contains an API for automated integration testing.\
 Official build based on `axllent/mailpit` image. 🐳 [Docker official image page](https://hub.docker.com/r/axllent/mailpit)
 
@@ -146,7 +139,6 @@ Official build based on `axllent/mailpit` image. 🐳 [Docker official image pag
 * `1025` SMTP
 
 ### Script-server
-The container for scripts execution.\
 Script-server allows you to execute pre-configured CLI scripts directly from a Web UI. No need for SSH connection, knowing commands exact syntax.\
 Official build based on `bugy/script-server` image. 🐳 [Docker official image page](https://hub.docker.com/r/bugy/script-server)
 
@@ -154,7 +146,6 @@ Official build based on `bugy/script-server` image. 🐳 [Docker official image 
 * `8090` WebUI
 
 ### kCacheGrind
-The container for xdebug profile analyze.\
 Web GUI to inspect Valgrind and Xdebug profiling reports.\
 Official build based on `nedix/kcachegrind` image. 🐳 [Docker official image page](https://hub.docker.com/r/nedix/kcachegrind)
 
