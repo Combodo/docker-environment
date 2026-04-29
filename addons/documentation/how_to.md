@@ -9,6 +9,7 @@ Tips for the common operations you may need to do with the docker environment.
 - [PHP](#php)
   - [Change PHP settings](#change-php-settings)
   - [Change XDebug settings](#change-xdebug-settings)
+  - [Change MariaDB client settings](#change-mariadb-client-settings)
   - [Add a new php version](#add-a-new-php-version)
 - [Web Server](#web-server)
   - [Change the webserver](#change-the-webserver)
@@ -88,9 +89,9 @@ You may also want to have a specific init file for a php version, you have to ov
 
 ### Change MariaDB client settings
 Modify the `client.cnf` file in the php conf directory then restart the container.\
-Note that this file is used by both MariaDB and MySQL clients.
-The SSL activation is managed by iTop.
-Known limitation, when you perform iTop backup with SSL on a MySQL server, you may experience an error: `--ssl-mode is not recognized`.\
+Note that this file is used by both MariaDB and MySQL clients.\
+The SSL activation is managed by iTop.\
+Known limitation, when you perform iTop backup with SSL on a MySQL server, you may experience an error: `--ssl-mode is not recognized`.
 
 ### Add a new php version
   * Duplicate a php section in `docker-compose.yml` then run `docker compose up -d`.\
@@ -203,7 +204,7 @@ Connect to the database container with `docker exec -it <container> bash` then u
 mariadb-dump --user <user> --password <database_name> > /tmp/dbdump/dump_file.sql
 ```
 
-> > [!IMPORTANT]
+> [!IMPORTANT]
 > mysql-dump is lot longer available in the mariadb container, you have to use `mariadb-dump` instead.
 
 ### MariaDB

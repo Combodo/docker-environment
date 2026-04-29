@@ -44,6 +44,8 @@ The containers in charge of serving the web pages.
 > You can change the default web server. [How To...](./addons/documentation/how_to.md#change-the-webserver)
 
 #### Default Listened Ports
+* `88` (Automatic Mode) To serve pages based on PHP version passed in request header `X-PHP-Version`.
+* `443` (Automatic Mode) To serve pages based on PHP version passed in request header `X-PHP-Version` with `HTTPS` protocol.
 * `74` Serve pages based on PHP 7.4.
 * `80` Serve pages based on PHP 8.0.
 * `81` Serve pages based on PHP 8.1.
@@ -51,9 +53,6 @@ The containers in charge of serving the web pages.
 * `83` Serve pages based on PHP 8.3.
 * `84` Serve pages based on PHP 8.4.
 * `85` Serve pages based on PHP 8.5.
-
-* `88` (Automatic Mode) To serve pages based on PHP version passed in request header `X-PHP-Version`.
-* `443` (Automatic Mode) To serve pages based on PHP version passed in request header `X-PHP-Version` with `HTTPS` protocol.
 
 #### Automatic Mode
 With automatic mode, web servers will serve pages based on the PHP version passed in the request header `X-PHP-Version`.\
@@ -72,8 +71,8 @@ Based on `nginx:alpine`
 
 🐳 [Docker official image page](https://hub.docker.com/_/nginx)
 
-> [!IMPORTANT]
-> A `self-signed certificate` is included in the certs webserver conf directory allowing `HTTPS`.
+> [!NOTE]
+> A self-signed certificate is included in the certs webserver conf directory allowing `HTTPS`.
 
 > [!NOTE]
 > `app.conf` file is included in the nginx conf directory to configure Nginx settings. [How To...](./addons/documentation/how_to.md#edit-configuration)
@@ -87,7 +86,7 @@ Based on `httpd:latest`
 🐳 [Docker official image page](https://hub.docker.com/_/httpd)
 
 > [!NOTE]
-> A `self-signed certificate` is included in the certs webserver conf directory allowing `HTTPS`.
+> A self-signed certificate is included in the certs webserver conf directory allowing `HTTPS`.
 
 > [!NOTE]
 > `httpd.conf` file is included in the apache conf directory to configure Apache settings. [How To...](./addons/documentation/how_to.md#edit-configuration-1)\
