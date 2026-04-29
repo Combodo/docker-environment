@@ -86,6 +86,12 @@ You may also want to have a specific init file for a php version, you have to ov
 > [!NOTE]
 > Browse [XDebug settings](https://xdebug.org/docs/all_settings) for more information.
 
+### Change MariaDB client settings
+Modify the `client.cnf` file in the php conf directory then restart the container.\
+Note that this file is used by both MariaDB and MySQL clients.
+The SSL activation is managed by iTop.
+Known limitation, when you perform iTop backup with SSL on a MySQL server, you may experience an error: `--ssl-mode is not recognized`.\
+
 ### Add a new php version
   * Duplicate a php section in `docker-compose.yml` then run `docker compose up -d`.\
   * Bind a port in the web server then edit the server configuration to add a new virtual host.\

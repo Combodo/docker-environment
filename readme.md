@@ -66,24 +66,28 @@ You also can use one of the official browser extensions allowing to add custom h
 
 #### Nginx (default)
 The container for Nginx webserver.\
-A `self-signed certificate` is included in the certs conf directory allowing `HTTPS`.
 
 Official build of Nginx.\
 Based on `nginx:alpine`
 
 🐳 [Docker official image page](https://hub.docker.com/_/nginx)
 
+> [!IMPORTANT]
+> A `self-signed certificate` is included in the certs webserver conf directory allowing `HTTPS`.
+
 > [!NOTE]
 > `app.conf` file is included in the nginx conf directory to configure Nginx settings. [How To...](./addons/documentation/how_to.md#edit-configuration)
 
 #### Apache
 The container for Apache webserver.\
-A `self-signed certificate` is included in the certs conf directory allowing `HTTPS`.
 
 Official build of Apache.\
 Based on `httpd:latest`
 
 🐳 [Docker official image page](https://hub.docker.com/_/httpd)
+
+> [!NOTE]
+> A `self-signed certificate` is included in the certs webserver conf directory allowing `HTTPS`.
 
 > [!NOTE]
 > `httpd.conf` file is included in the apache conf directory to configure Apache settings. [How To...](./addons/documentation/how_to.md#edit-configuration-1)\
@@ -99,7 +103,8 @@ While designed for web development, the PHP scripting language also provides gen
 
 > [!NOTE]
 > `php.ini` file is included in the php conf directory to configure PHP settings. [How To...](./addons/documentation/how_to.md#change-PHP-settings)\
-`xdebug.ini` file is included in the php conf directory to configure XDebug settings. [How To...](./addons/documentation/how_to.md#change-XDebug-settings)
+`xdebug.ini` file is included in the php conf directory to configure XDebug settings. [How To...](./addons/documentation/how_to.md#change-XDebug-settings)\
+`client.cnf` file is included in the php conf directory to configure MariaDB/MySQL client settings. [How To...](./addons/documentation/how_to.md#change-MariaDB-client-settings)
 
 > [!TIP]
 > You can  add a new PHP version. [How To...](./addons/documentation/how_to.md#add-a-new-php-version)
@@ -112,6 +117,14 @@ Based on `mariadb` image.
 
 🐳 [Docker official image page](https://hub.docker.com/_/mariadb)
 
+> [!NOTE]
+> Certificates are included in the certs database conf directory allowing secured connection to the database.
+
+> [!IMPORTANT]
+> `require_secure_transport` flag is set to `OFF` in the default configuration of the database.\
+If you want to enable it, you can change the `my.cnf` file included in the database conf directory. [How To...](./addons/documentation/how_to.md#edit-configuration-2)\
+You also need to set `db_tls.enabled' => true` in iTop configurations.
+
 
 #### Default Listened Ports
 * `3306`
@@ -123,6 +136,14 @@ MySQL is a widely used, open-source relational database management system (RDBMS
 Based on `mysql` image.
 
 🐳 [Docker official image page](https://hub.docker.com/_/mysql)
+
+> [!NOTE]
+> Certificates are included in the certs database conf directory allowing secured connection to the database.
+
+> [!IMPORTANT]
+> `require_secure_transport` flag is set to `OFF` in the default configuration of the database.\
+If you want to enable it, you can change the `my.cnf` file included in the database conf directory. [How To...](./addons/documentation/how_to.md#edit-configuration-2)\
+You also need to set `db_tls.enabled' => true` in iTop configurations.
 
 #### Default Listened Ports
 * `3307`

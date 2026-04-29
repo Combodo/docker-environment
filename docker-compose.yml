@@ -23,10 +23,12 @@ x-php: &default-php
   volumes:
     - ${CONF_FOLDER}/php/php.ini:/usr/local/etc/php/conf.d/php.ini
     - ${CONF_FOLDER}/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+    - ${CONF_FOLDER}/php/client.cnf:/etc/mysql/conf.d/client.cnf
     - ${CONF_FOLDER}/msmtprc/msmtprc:/var/www/.msmtprc:ro
     - ${HTML_FOLDER}:/var/www/html/
     - ${DATA_FOLDER}/php/coverage:${PHP_COVERAGE_OUTPUT_FOLDER}
     - ${DATA_FOLDER}/php/profile:${PHP_PROFILE_OUTPUT_FOLDER}
+    - ${CONF_FOLDER}/certs/database:/etc/database/certs
   restart: always
 
 services:
@@ -115,7 +117,7 @@ services:
     volumes:
       - ${CONF_FOLDER}/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
       - ${CONF_FOLDER}/apache/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
-      - ${CONF_FOLDER}/certs:/etc/apache/certs
+      - ${CONF_FOLDER}/certs/webserver:/etc/apache/certs
       - ${HTML_FOLDER}:/var/www/html/
     restart: always
 #    depends_on:
@@ -149,7 +151,7 @@ services:
       - "${NGINX_PORT_85:-85}:85"
     volumes:
       - ${CONF_FOLDER}/nginx:/etc/nginx/conf.d
-      - ${CONF_FOLDER}/certs:/etc/nginx/certs
+      - ${CONF_FOLDER}/certs/webserver:/etc/nginx/certs
       - ${HTML_FOLDER}:/var/www/html/
     restart: always
 #    depends_on:
@@ -173,6 +175,7 @@ services:
       - ${CONF_FOLDER}/mariadb:/etc/mysql/conf.d
       - ${DATA_FOLDER}/mariadb/:/var/lib/mysql
       - ${DATA_FOLDER}/dbdump/:/tmp/dbdump
+      - ${CONF_FOLDER}/certs/database:/etc/mariadb/certs
     environment:
       MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
 
@@ -186,6 +189,7 @@ services:
       - ${CONF_FOLDER}/mysql:/etc/mysql/conf.d
       - ${DATA_FOLDER}/mysql/:/var/lib/mysql
       - ${DATA_FOLDER}/dbdump/:/tmp/dbdump
+      - ${CONF_FOLDER}/certs/database:/etc/mysql/certs
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
 
@@ -193,6 +197,13 @@ services:
     image: adminer
     container_name: adminer
     restart: unless-stopped
+    environment:
+      DB_SSL_KEY: '/etc/database/certs/client-key.pem'
+      DB_SSL_CERT: '/etc/database/certs/client-cert.pem'
+      DB_SSL_CA: '/etc/database/certs/ca-cert.pem'
+    volumes:
+      - ${CONF_FOLDER}/certs/database:/etc/database/certs
+      - ${CONF_FOLDER}/adminer/plugins-enabled/:/var/www/html/plugins-enabled/
     ports:
       - "${ADMINER_PORT:-8080}:8080"
     deploy:
