@@ -28,6 +28,9 @@ Tips for the common operations you may need to do with the docker environment.
   - [MySQL](#mysql)
     - [Connect from host](#connect-from-host-1)
     - [Edit configuration](#edit-configuration-2)
+  - [Activate secured connection](#activate-secured-connection)
+    - [TLS/SSL](#tlsssl)
+    - [Certificate validation](#certificate-validation)
 - [Adminer](#adminer)
   - [See database data](#see-database-data)
 - [MailPit](#mailpit)
@@ -183,35 +186,6 @@ Modify the `httpd-vhosts.conf` file in the apache conf directory then restart th
 You can change the folder used by databases in your `.env.local` file.\
 Just set a new value to the `DATA_FOLDER` variable.
 
-### Activate secured connection
-If you want to activate secured connection to your database.
-
-> [!NOTE]
-> Adminer is already configured to connect to the database with SSL, so no need to change its configuration.
-
-#### TLS/SSL
-Activate the flag `require_secure_transport = ON` in the corresponding `my.cnf` file from the database conf directory then restart the container.\
-You also need to set `db_tls.enabled' => true` in iTop configurations.\
-
-> [!CAUTION]
-> When you make backup from iTop with SSL on a MySQL server, you will get an error "--ssl-mode is not recognized" because iTop use a mySQL parameter on a MariaDB client.\
-In that case, you will need to perform the dump as describesed in the [Import/Export database dump](#importexport-database-dump) section.
-
-#### Certificate validation
-Certificate validation is not fully implemented on iTop, but you can configure it to force a specific user to provide it.
-
-On MariaDB, to force the validation of a certificate, set the flag `ssl_verify_client_cert = ON` in the corresponding `my.cnf` file from the database conf directory then restart the container.\
-However, this seems to not be fully compatible with the MariaDB docker image.
-
-For MySQL or if you want to have a workaround for MariaDB,
-you can force certificate validation for a specific user by creating it with the `REQUIRE X509` option in your database.\
-
-```sql
-CREATE USER 'secure_user'@'%' IDENTIFIED BY 'password' REQUIRE X509;
-GRANT ALL PRIVILEGES ON *.* TO 'secure_user'@'%' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
-```
-
 ### Import/Export database dump
 
 > [!NOTE]
@@ -263,6 +237,35 @@ According to the port defined in the `docker-compose.yml`, you can connect to th
 
 #### Edit configuration
 Modify the `my.cnf` file in the MySQL conf directory then restart the container.
+
+### Activate secured connection
+If you want to activate secured connection to your database.
+
+> [!NOTE]
+> Adminer is already configured to connect to the database with SSL, so no need to change its configuration.
+
+#### TLS/SSL
+Activate the flag `require_secure_transport = ON` in the corresponding `my.cnf` file from the database conf directory then restart the container.\
+You also need to set `db_tls.enabled' => true` in iTop configurations.
+
+> [!CAUTION]
+> When you make backup from iTop with SSL on a MySQL server, you will get an error "--ssl-mode is not recognized" because iTop use a mySQL parameter on a MariaDB client.\
+In that case, you will need to perform the dump as describesed in the [Import/Export database dump](#importexport-database-dump) section.
+
+#### Certificate validation
+Certificate validation is not fully implemented on iTop, but you can configure it to force a specific user to provide it.
+
+On MariaDB, to force the validation of a certificate, set the flag `ssl_verify_client_cert = ON` in the corresponding `my.cnf` file from the database conf directory then restart the container.\
+However, this seems to not be fully compatible with the MariaDB docker image.
+
+For MySQL or if you want to have a workaround for MariaDB,
+you can force certificate validation for a specific user by creating it with the `REQUIRE X509` option in your database.\
+
+```sql
+CREATE USER 'secure_user'@'%' IDENTIFIED BY 'password' REQUIRE X509;
+GRANT ALL PRIVILEGES ON *.* TO 'secure_user'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+```
 
 ## Adminer
 
