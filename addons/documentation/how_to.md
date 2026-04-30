@@ -253,7 +253,7 @@ You also need to set `db_tls.enabled' => true` in iTop configurations.
 In that case, you will need to perform the dump as describesed in the [Import/Export database dump](#importexport-database-dump) section.
 
 #### Certificate validation
-Certificate validation is not fully implemented on iTop, but you can configure it to force a specific user to provide it.
+Validate secured connection with a certificate to be sure that you are connecting to the right.
 
 On MariaDB, to force the validation of a certificate, set the flag `ssl_verify_client_cert = ON` in the corresponding `my.cnf` file from the database conf directory then restart the container.\
 However, this seems to not be fully compatible with the MariaDB docker image.
@@ -266,6 +266,22 @@ CREATE USER 'secure_user'@'%' IDENTIFIED BY 'password' REQUIRE X509;
 GRANT ALL PRIVILEGES ON *.* TO 'secure_user'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 ```
+
+### Change user password
+
+```sql
+ALTER USER 'root'@'%' IDENTIFIED BY 'password';
+FLUSH PRIVILEGES;
+```
+
+
+To use certificate in iTop, set the `'db_tls.ca' => '/etc/database/certs/ca.pem',` in iTop global configuration.
+
+> [!NOTE]
+> The certificate provided in the `conf/certs/database` folder is targeted for mysql container, so you may have `Peer certificate CN=mysql' did not match expected CN=`mariadb'` error in iTop with mariadb.
+
+> [!WARNING]
+> Certificate validation is not fully implemented in iTop.
 
 ## Adminer
 

@@ -200,7 +200,7 @@ services:
     environment:
       DB_SSL_KEY: '/etc/database/certs/client-key.pem'
       DB_SSL_CERT: '/etc/database/certs/client-cert.pem'
-      DB_SSL_CA: '/etc/database/certs/ca-cert.pem'
+      DB_SSL_CA: '/etc/database/certs/ca.pem'
     volumes:
       - ${CONF_FOLDER}/certs/database:/etc/database/certs
       - ${CONF_FOLDER}/adminer/plugins-enabled/:/var/www/html/plugins-enabled/
