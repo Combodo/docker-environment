@@ -90,8 +90,6 @@ You may also want to have a specific init file for a php version, you have to ov
 ### Change MariaDB client settings
 Modify the `client.cnf` file in the php conf directory then restart the container.\
 Note that this file is used by both MariaDB and MySQL clients.\
-The SSL activation is managed by iTop.\
-Known limitation, when you perform iTop backup with SSL on a MySQL server, you may experience an error: `--ssl-mode is not recognized`.
 
 ### Add a new php version
   * Duplicate a php section in `docker-compose.yml` then run `docker compose up -d`.\
@@ -185,27 +183,70 @@ Modify the `httpd-vhosts.conf` file in the apache conf directory then restart th
 You can change the folder used by databases in your `.env.local` file.\
 Just set a new value to the `DATA_FOLDER` variable.
 
+### Activate secured connection
+If you want to activate secured connection to your database.
+
+> [!NOTE]
+> Adminer is already configured to connect to the database with SSL, so no need to change its configuration.
+
+#### TLS/SSL
+Activate the flag `require_secure_transport = ON` in the corresponding `my.cnf` file from the database conf directory then restart the container.\
+You also need to set `db_tls.enabled' => true` in iTop configurations.\
+
+> [!CAUTION]
+> When you make backup from iTop with SSL on a MySQL server, you will get an error "--ssl-mode is not recognized" because iTop use a mySQL parameter on a MariaDB client.\
+In that case, you will need to perform the dump as describesed in the [Import/Export database dump](#importexport-database-dump) section.
+
+#### Certificate validation
+Certificate validation is not fully implemented on iTop, but you can configure it to force a specific user to provide it.
+
+On MariaDB, to force the validation of a certificate, set the flag `ssl_verify_client_cert = ON` in the corresponding `my.cnf` file from the database conf directory then restart the container.\
+However, this seems to not be fully compatible with the MariaDB docker image.
+
+For MySQL or if you want to have a workaround for MariaDB,
+you can force certificate validation for a specific user by creating it with the `REQUIRE X509` option in your database.\
+
+```sql
+CREATE USER 'secure_user'@'%' IDENTIFIED BY 'password' REQUIRE X509;
+GRANT ALL PRIVILEGES ON *.* TO 'secure_user'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+```
+
 ### Import/Export database dump
 
 > [!NOTE]
 > A folder is mount from the host (data/dbdump) in data folder to the database container (/tmp/dbdump).
 
-#### Import
-Connect to the database container with `docker exec -it <container> bash` then use the command line to import your dump.
+#### Import from database container
+You can put the dump file from the docker host in the `data/dbdump` folder then connect to the database container with `docker exec -it <container> bash` and use the command line to import your dump.
 
 ```bash
 mariadb --user <user> --password <database_name> < /tmp/dbdump/dump_file.sql
 ```
 
-#### Export
-Connect to the database container with `docker exec -it <container> bash` then use the command line to import your dump.
+#### Import from docker host
+You can directly import the dump file from the host with the following command:
+
+```bash
+docker exec -i <mariadb|mysql> <mariadb-dump|mysqldump> -u <user> -p <database_name> < data/dbdump/dump_file.sql
+```
+
+#### Export from database container
+Connect to the database container with `docker exec -it <container> bash` then use the command line to export your dump then you can find the dump file from the docker host in the `data/dbdump` folder.
 
 ```bash
 mariadb-dump --user <user> --password <database_name> > /tmp/dbdump/dump_file.sql
 ```
 
+#### Export from docker host
+You can directly export the dump file from the host with the following command:
+
+```bash
+docker exec -i <mariadb|mysql> <mariadb-dump|mysqldump> -u <user> -p <database_name> > data/dbdump/dump_file.sql
+```
+
 > [!IMPORTANT]
-> mysql-dump is lot longer available in the mariadb container, you have to use `mariadb-dump` instead.
+> mysqldump is lot longer available in the mariadb container, you have to use `mariadb-dump` instead.
 
 ### MariaDB
 
