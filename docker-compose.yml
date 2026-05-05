@@ -175,7 +175,7 @@ services:
       - ${CONF_FOLDER}/mariadb:/etc/mysql/conf.d
       - ${DATA_FOLDER}/mariadb/:/var/lib/mysql
       - ${DATA_FOLDER}/dbdump/:/tmp/dbdump
-      - ${CONF_FOLDER}/certs/database:/etc/mariadb/certs
+      - ${CONF_FOLDER}/certs/database:/etc/mariadb/certs:ro
     environment:
       MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
 
