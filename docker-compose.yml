@@ -23,7 +23,7 @@ x-php: &default-php
   volumes:
     - ${CONF_FOLDER}/php/php.ini:/usr/local/etc/php/conf.d/php.ini
     - ${CONF_FOLDER}/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
-    - ${CONF_FOLDER}/php/client.cnf:/etc/mysql/conf.d/client.cnf
+    - ${CONF_FOLDER}/php/client.cnf:/etc/mysql/conf.d/client.cnf:ro
     - ${CONF_FOLDER}/msmtprc/msmtprc:/var/www/.msmtprc:ro
     - ${HTML_FOLDER}:/var/www/html/
     - ${DATA_FOLDER}/php/coverage:${PHP_COVERAGE_OUTPUT_FOLDER}
