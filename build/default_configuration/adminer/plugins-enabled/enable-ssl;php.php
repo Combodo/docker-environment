@@ -1,9 +1,22 @@
 <?php
 require_once('plugins/login-ssl.php');
 
-$key = $_ENV['DB_SSL_KEY'];
-$cert = $_ENV['DB_SSL_CERT'];
-$ca = $_ENV['DB_SSL_CA'];
+/**
+ * @param string $name
+ * @return string
+ */
+function required_env($name) {
+    $value = getenv($name);
+    if ($value === false || $value === '') {
+        throw new RuntimeException("Missing required environment variable: " . $name);
+    }
+
+    return $value;
+}
+
+$key = required_env('DB_SSL_KEY');
+$cert = required_env('DB_SSL_CERT');
+$ca = required_env('DB_SSL_CA');
 
 /**
  * @param array array("key" => filename, "cert" => filename, "ca" => filename)
