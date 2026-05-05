@@ -116,7 +116,7 @@ Official build based on `mysql` image. 🐳 [Docker official image page](https:/
 
 > [!IMPORTANT]
 > `require_secure_transport` flag is set to `OFF` in the default configuration of the database.\
-If you want to enable it, you can change the `my.cnf` file included in the database conf directory. [How To...](./addons/documentation/how_to.md#edit-configuration-2)\
+If you want to enable it, you can change the `my.cnf` file included in the database conf directory. [How To...](./addons/documentation/how_to.md#activate-secured-connection)\
 You also need to set `'db_tls.enabled' => true` in iTop configurations.
 
 #### Default Listened Ports
