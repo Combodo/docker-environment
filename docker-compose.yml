@@ -28,7 +28,7 @@ x-php: &default-php
     - ${HTML_FOLDER}:/var/www/html/
     - ${DATA_FOLDER}/php/coverage:${PHP_COVERAGE_OUTPUT_FOLDER}
     - ${DATA_FOLDER}/php/profile:${PHP_PROFILE_OUTPUT_FOLDER}
-    - ${CONF_FOLDER}/certs/database:/etc/database/certs
+    - ${CONF_FOLDER}/certs/database:/etc/database/certs:ro
   restart: always
 
 services:
