@@ -250,7 +250,7 @@ You also need to set `db_tls.enabled' => true` in iTop configurations.
 
 > [!CAUTION]
 > When you make backup from iTop with SSL on a MySQL server, you will get an error "--ssl-mode is not recognized" because iTop use a mySQL parameter on a MariaDB client.\
-In that case, you will need to perform the dump as describesed in the [Import/Export database dump](#importexport-database-dump) section.
+In that case, you will need to perform the dump as describes in the [Import/Export database dump](#importexport-database-dump) section.
 
 #### Certificate validation
 Validate secured connection with a certificate to be sure that you are connecting to the right.
