@@ -9,6 +9,7 @@ Tips for the common operations you may need to do with the docker environment.
 - [PHP](#php)
   - [Change PHP settings](#change-php-settings)
   - [Change XDebug settings](#change-xdebug-settings)
+  - [Change MariaDB client settings](#change-mariadb-client-settings)
   - [Add a new php version](#add-a-new-php-version)
 - [Web Server](#web-server)
   - [Change the webserver](#change-the-webserver)
@@ -27,6 +28,9 @@ Tips for the common operations you may need to do with the docker environment.
   - [MySQL](#mysql)
     - [Connect from host](#connect-from-host-1)
     - [Edit configuration](#edit-configuration-2)
+  - [Activate secured connection](#activate-secured-connection)
+    - [TLS/SSL](#tlsssl)
+    - [Certificate validation](#certificate-validation)
 - [Adminer](#adminer)
   - [See database data](#see-database-data)
 - [MailPit](#mailpit)
@@ -85,6 +89,10 @@ You may also want to have a specific init file for a php version, you have to ov
 
 > [!NOTE]
 > Browse [XDebug settings](https://xdebug.org/docs/all_settings) for more information.
+
+### Change MariaDB client settings
+Modify the `client.cnf` file in the php conf directory then restart the container.\
+Note that this file is used by both MariaDB and MySQL clients.\
 
 ### Add a new php version
   * Duplicate a php section in `docker-compose.yml` then run `docker compose up -d`.\
@@ -183,22 +191,36 @@ Just set a new value to the `DATA_FOLDER` variable.
 > [!NOTE]
 > A folder is mount from the host (data/dbdump) in data folder to the database container (/tmp/dbdump).
 
-#### Import
-Connect to the database container with `docker exec -it <container> bash` then use the command line to import your dump.
+#### Import from database container
+You can put the dump file from the docker host in the `data/dbdump` folder then connect to the database container with `docker exec -it <container> bash` and use the command line to import your dump.
 
 ```bash
 mariadb --user <user> --password <database_name> < /tmp/dbdump/dump_file.sql
 ```
 
-#### Export
-Connect to the database container with `docker exec -it <container> bash` then use the command line to import your dump.
+#### Import from docker host
+You can directly import the dump file from the host with the following command:
+
+```bash
+docker exec -i <mariadb|mysql> <mariadb-dump|mysqldump> -u <user> -p <database_name> < data/dbdump/dump_file.sql
+```
+
+#### Export from database container
+Connect to the database container with `docker exec -it <container> bash` then use the command line to export your dump then you can find the dump file from the docker host in the `data/dbdump` folder.
 
 ```bash
 mariadb-dump --user <user> --password <database_name> > /tmp/dbdump/dump_file.sql
 ```
 
-> > [!IMPORTANT]
-> mysql-dump is lot longer available in the mariadb container, you have to use `mariadb-dump` instead.
+#### Export from docker host
+You can directly export the dump file from the host with the following command:
+
+```bash
+docker exec -i <mariadb|mysql> <mariadb-dump|mysqldump> -u <user> -p <database_name> > data/dbdump/dump_file.sql
+```
+
+> [!IMPORTANT]
+> mysqldump is lot longer available in the mariadb container, you have to use `mariadb-dump` instead.
 
 ### MariaDB
 
@@ -215,6 +237,51 @@ According to the port defined in the `docker-compose.yml`, you can connect to th
 
 #### Edit configuration
 Modify the `my.cnf` file in the MySQL conf directory then restart the container.
+
+### Activate secured connection
+If you want to activate secured connection to your database.
+
+> [!NOTE]
+> Adminer is already configured to connect to the database with SSL, so no need to change its configuration.
+
+#### TLS/SSL
+Activate the flag `require_secure_transport = ON` in the corresponding `my.cnf` file from the database conf directory then restart the container.\
+You also need to set `db_tls.enabled' => true` in iTop configurations.
+
+> [!CAUTION]
+> When you make backup from iTop with SSL on a MySQL server, you will get an error "--ssl-mode is not recognized" because iTop use a mySQL parameter on a MariaDB client.\
+In that case, you will need to perform the dump as describes in the [Import/Export database dump](#importexport-database-dump) section.
+
+#### Certificate validation
+Validate secured connection with a certificate to be sure that you are connecting to the right.
+
+On MariaDB, to force the validation of a certificate, set the flag `ssl_verify_client_cert = ON` in the corresponding `my.cnf` file from the database conf directory then restart the container.\
+However, this seems to not be fully compatible with the MariaDB docker image.
+
+For MySQL or if you want to have a workaround for MariaDB,
+you can force certificate validation for a specific user by creating it with the `REQUIRE X509` option in your database.\
+
+```sql
+CREATE USER 'secure_user'@'%' IDENTIFIED BY 'password' REQUIRE X509;
+GRANT ALL PRIVILEGES ON *.* TO 'secure_user'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+```
+
+### Change user password
+
+```sql
+ALTER USER 'root'@'%' IDENTIFIED BY 'password';
+FLUSH PRIVILEGES;
+```
+
+
+To use certificate in iTop, set the `'db_tls.ca' => '/etc/database/certs/ca.pem',` in iTop global configuration.
+
+> [!NOTE]
+> The certificate provided in the `conf/certs/database` folder is targeted for mysql container, so you may have `Peer certificate CN=mysql' did not match expected CN=`mariadb'` error in iTop with mariadb.
+
+> [!WARNING]
+> Certificate validation is not fully implemented in iTop.
 
 ## Adminer
 

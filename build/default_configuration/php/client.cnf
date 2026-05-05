@@ -1,0 +1,10 @@
+[client]
+ssl-ca   = /etc/database/certs/ca.pem
+ssl-cert = /etc/database/certs/client-cert.pem
+ssl-key  = /etc/database/certs/client-key.pem
+
+# verification failed due to hostname mismatch
+# as we have mariadb and mysql, php client couldn't verify the server cert
+ssl-verify-server-cert = false
+
+[client-mariadb]

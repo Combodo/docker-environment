@@ -44,16 +44,12 @@ The containers in charge of serving the web pages.
 > You can change the default web server. [How To...](./addons/documentation/how_to.md#change-the-webserver)
 
 #### Default Listened Ports
+* `88` (Automatic Mode) To serve pages based on PHP version passed in request header `X-PHP-Version`.
+* `443` (Automatic Mode) To serve pages based on PHP version passed in request header `X-PHP-Version` with `HTTPS` protocol.
 * `74` Serve pages based on PHP 7.4.
 * `80` Serve pages based on PHP 8.0.
 * `81` Serve pages based on PHP 8.1.
-* `82` Serve pages based on PHP 8.2.
-* `83` Serve pages based on PHP 8.3.
-* `84` Serve pages based on PHP 8.4.
-* `85` Serve pages based on PHP 8.5.
-
-* `88` (Automatic Mode) To serve pages based on PHP version passed in request header `X-PHP-Version`.
-* `443` (Automatic Mode) To serve pages based on PHP version passed in request header `X-PHP-Version` with `HTTPS` protocol.
+* etc... (depending on the number of PHP versions you have, until 88 😬)
 
 #### Automatic Mode
 With automatic mode, web servers will serve pages based on the PHP version passed in the request header `X-PHP-Version`.\
@@ -65,108 +61,92 @@ You also can use one of the official browser extensions allowing to add custom h
 
 
 #### Nginx (default)
-The container for Nginx webserver.\
-A `self-signed certificate` is included in the certs conf directory allowing `HTTPS`.
+Nginx webserver.\
+Official build of Nginx based on `nginx:alpine` 🐳 [Docker official image page](https://hub.docker.com/_/nginx)
 
-Official build of Nginx.\
-Based on `nginx:alpine`
-
-🐳 [Docker official image page](https://hub.docker.com/_/nginx)
+> [!NOTE]
+> A self-signed certificate is included in the certs webserver conf directory allowing `HTTPS`.
 
 > [!NOTE]
 > `app.conf` file is included in the nginx conf directory to configure Nginx settings. [How To...](./addons/documentation/how_to.md#edit-configuration)
 
 #### Apache
-The container for Apache webserver.\
-A `self-signed certificate` is included in the certs conf directory allowing `HTTPS`.
+Apache webserver.\
+Official build based on `httpd:latest` 🐳 [Docker official image page](https://hub.docker.com/_/httpd)
 
-Official build of Apache.\
-Based on `httpd:latest`
-
-🐳 [Docker official image page](https://hub.docker.com/_/httpd)
+> [!NOTE]
+> A self-signed certificate is included in the certs webserver conf directory allowing `HTTPS`.
 
 > [!NOTE]
 > `httpd.conf` file is included in the apache conf directory to configure Apache settings. [How To...](./addons/documentation/how_to.md#edit-configuration-1)\
 `httpd-vhosts.conf` file is included in the apache conf directory to configure virtual hosts. [How To...](./addons/documentation/how_to.md#edit-configuration-1)
 
 ### PHP FPM X.X
-The containers in charge of the PHP script processing.\
-Based on `php:x.x-fpm` image, this extended image includes `xdebug`, all needed `php extensions`, `graphviz` and a `MariaDB client` to run iTop.
-
-While designed for web development, the PHP scripting language also provides general-purpose use.
-
-🐳 [Docker official image page](https://hub.docker.com/_/php)
+While designed for web development, the PHP scripting language also provides general-purpose use.\
+Custom build based on `php:x.x-fpm` image, this extended image includes `xdebug`, all needed `php extensions`, `graphviz` and a `MariaDB client` to run iTop 🐳 [Docker official image page](https://hub.docker.com/_/php)
 
 > [!NOTE]
 > `php.ini` file is included in the php conf directory to configure PHP settings. [How To...](./addons/documentation/how_to.md#change-PHP-settings)\
-`xdebug.ini` file is included in the php conf directory to configure XDebug settings. [How To...](./addons/documentation/how_to.md#change-XDebug-settings)
+`xdebug.ini` file is included in the php conf directory to configure XDebug settings. [How To...](./addons/documentation/how_to.md#change-XDebug-settings)\
+`client.cnf` file is included in the php conf directory to configure MariaDB/MySQL client settings. [How To...](./addons/documentation/how_to.md#change-MariaDB-client-settings)
 
 > [!TIP]
 > You can  add a new PHP version. [How To...](./addons/documentation/how_to.md#add-a-new-php-version)
 
 ### MariaDB
-The container for MariaDB database.
-
 MariaDB Server is a high performing open source relational database, forked from MySQL.\
-Based on `mariadb` image.
+Official build based on `mariadb` image. 🐳 [Docker official image page](https://hub.docker.com/_/mariadb)
 
-🐳 [Docker official image page](https://hub.docker.com/_/mariadb)
+> [!NOTE]
+> Certificates are included in the certs database conf directory allowing secured connection to the database.
 
+> [!IMPORTANT]
+> `require_secure_transport` flag is set to `OFF` in the default configuration of the database.\
+If you want to enable it, you can change the `my.cnf` file included in the database conf directory. [How To...](./addons/documentation/how_to.md#activate-secured-connection)\
 
 #### Default Listened Ports
 * `3306`
 
 ### MySQL
-The container for MySQL database.
+MySQL is a widely used, open-source relational database management system (RDBMS).\
+Official build based on `mysql` image. 🐳 [Docker official image page](https://hub.docker.com/_/mysql)
 
-MySQL is a widely used, open-source relational database management system (RDBMS).
-Based on `mysql` image.
+> [!NOTE]
+> Certificates are included in the certs database conf directory allowing secured connection to the database.
 
-🐳 [Docker official image page](https://hub.docker.com/_/mysql)
+> [!IMPORTANT]
+> `require_secure_transport` flag is set to `OFF` in the default configuration of the database.\
+If you want to enable it, you can change the `my.cnf` file included in the database conf directory. [How To...](./addons/documentation/how_to.md#activate-secured-connection)\
+You also need to set `'db_tls.enabled' => true` in iTop configurations.
 
 #### Default Listened Ports
 * `3307`
 
 ### Adminer
-The container for database web administration.
-
-Database management in a single PHP file.
-Based on `adminer` image.
-
-🐳 [Docker official image page](https://hub.docker.com/_/adminer)
+Database management in a single PHP file.\
+Official build based on `adminer` image. 🐳 [Docker official image page](https://hub.docker.com/_/adminer)
 
 #### Default Listened Ports
 * `8080`
 
 ### MailPit
-The container for mailer testing.
-
-Mailpit is packed full of features for developers wanting to test SMTP and emails. It acts as an SMTP server, provides a modern web interface to view & test intercepted emails. It also contains an API for automated integration testing.
-Based on `axllent/mailpit` image.
-
-🐳 [Docker official image page](https://hub.docker.com/r/axllent/mailpit)
+Mailpit is packed full of features for developers wanting to test SMTP and emails. It acts as an SMTP server, provides a modern web interface to view & test intercepted emails. It also contains an API for automated integration testing.\
+Official build based on `axllent/mailpit` image. 🐳 [Docker official image page](https://hub.docker.com/r/axllent/mailpit)
 
 #### Default Listened Ports
 * `8025` WebUI
 * `1025` SMTP
 
 ### Script-server
-The container for scripts execution.
-
-Script-server allows you to execute pre-configured CLI scripts directly from a Web UI. No need for SSH connection, knowing commands exact syntax.
-Based on `bugy/script-server` image.
-
-🐳 [Docker official image page](https://hub.docker.com/r/bugy/script-server)
+Script-server allows you to execute pre-configured CLI scripts directly from a Web UI. No need for SSH connection, knowing commands exact syntax.\
+Official build based on `bugy/script-server` image. 🐳 [Docker official image page](https://hub.docker.com/r/bugy/script-server)
 
 #### Default Listened Ports
 * `8090` WebUI
 
 ### kCacheGrind
-The container for xdebug profile analyze.
-
-Web GUI to inspect Valgrind and Xdebug profiling reports.
-
-🐳 [Docker official image page](https://hub.docker.com/r/nedix/kcachegrind)
+Web GUI to inspect Valgrind and Xdebug profiling reports.\
+Official build based on `nedix/kcachegrind` image. 🐳 [Docker official image page](https://hub.docker.com/r/nedix/kcachegrind)
 
 #### Default Listened Ports
 * `8088` WebUI
