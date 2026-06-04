@@ -151,6 +151,13 @@ Official build based on `nedix/kcachegrind` image. 🐳 [Docker official image p
 #### Default Listened Ports
 * `8088` WebUI
 
+### WebSVN
+Web GUI to browse SVN repository.\
+Official build based on `pschatzmann/websvn` image. 🐳 [Docker official image page](https://hub.docker.com/r/pschatzmann/websvn)
+
+#### Default Listened Ports
+* `8086` WebUI
+
 
 
 

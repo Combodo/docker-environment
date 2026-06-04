@@ -260,6 +260,8 @@ services:
       - ${KCACHE_GRIND_WEB_PORT:-8088}:80
     volumes:
         - ${DATA_FOLDER}/php/profile:/data
+    deploy:
+      replicas: ${ENABLE_KCACHE_GRIND:-0}
 
   node:
     image: node:${NODE_DOCKER_VERSION:-24}
@@ -268,4 +270,17 @@ services:
     working_dir: /var/www/html
     volumes:
       - ${HTML_FOLDER}:/var/www/html/
+
+  websvn:
+    image: pschatzmann/websvn
+    container_name: websvn
+    ports:
+      - "${WEB_SVN_PORT:-8086}:80"
+    environment:
+      - repository=${WEB_SVN_REPOSITORY}
+      - user=${WEB_SVN_USERNAME}
+      - password=${WEB_SVN_PASSWORD}
+    restart: unless-stopped
+    deploy:
+      replicas: ${ENABLE_WEB_SVN:-0}
 
