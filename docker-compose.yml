@@ -57,7 +57,7 @@ services:
     build:
       <<: *default-php-build
       args:
-        IMAGE: php:8.1-fpm
+        IMAGE: php:8.1-fpm-bookworm
         XDEBUG_VERSION: 3.4.5
 
   php82:
@@ -66,7 +66,7 @@ services:
     build:
       <<: *default-php-build
       args:
-        IMAGE: php:8.2-fpm
+        IMAGE: php:8.2-fpm-bookworm
         XDEBUG_VERSION: 3.4.5
 
   php83:
@@ -75,7 +75,7 @@ services:
     build:
       <<: *default-php-build
       args:
-        IMAGE: php:8.3-fpm
+        IMAGE: php:8.3-fpm-bookworm
         XDEBUG_VERSION: 3.4.5
 
   php84:
@@ -84,7 +84,7 @@ services:
     build:
       <<: *default-php-build
       args:
-        IMAGE: php:8.4-fpm
+        IMAGE: php:8.4-fpm-bookworm
         XDEBUG_VERSION: 3.4.5
 
   php85:
@@ -93,7 +93,7 @@ services:
     build:
       <<: *default-php-build
       args:
-        IMAGE: php:8.5-fpm
+        IMAGE: php:8.5-fpm-bookworm
         XDEBUG_VERSION: 3.4.5
 
   apache:
@@ -166,7 +166,7 @@ services:
       replicas: ${ENABLE_NGINX:-0}
 
   mariadb:
-    image: mariadb
+    image: mariadb:12
     container_name: mariadb
     restart: unless-stopped
     ports:
@@ -180,7 +180,7 @@ services:
       MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
 
   mysql:
-    image: mysql
+    image: mysql:9
     container_name: mysql
     restart: unless-stopped
     ports:
