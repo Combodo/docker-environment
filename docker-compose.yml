@@ -30,6 +30,9 @@ x-php: &default-php
     - ${DATA_FOLDER}/php/profile:${PHP_PROFILE_OUTPUT_FOLDER}
     - ${CONF_FOLDER}/certs/database:/etc/database/certs:ro
   restart: always
+  networks:
+    - default
+    - shared
 
 services:
 
@@ -284,3 +287,6 @@ services:
     deploy:
       replicas: ${ENABLE_WEB_SVN:-0}
 
+networks:
+  shared:
+    name: shared-network
